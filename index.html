@@ -249,6 +249,9 @@ footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
 .contact-card{padding:28px 24px; border-radius:16px; background:linear-gradient(145deg, rgba(255,255,255,0.07), rgba(176,141,79,0.06));}
 .person-name{display:block; margin-bottom:8px; font-family:'Zilla Slab', serif; font-size:1.45rem; color:var(--paper); text-decoration:none;}
 .person-name:hover{color:var(--brass-light);}
+.email-send{display:inline-flex; width:38px; height:38px; align-items:center; justify-content:center; margin-top:18px; border:1px solid var(--brass); border-radius:10px; color:var(--brass-light); transition:background .2s ease, color .2s ease, transform .2s ease;}
+.email-send:hover{background:var(--brass); color:var(--ink); transform:translateY(-2px);}
+.email-send svg{width:18px; height:18px;}
 .email-only-contact .email{margin-bottom:0;}
 .email-only-contact .person-name{margin-bottom:12px;}
 @media (max-width:900px){
@@ -401,6 +404,13 @@ footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
               <div class="col-h mono">Get in touch</div>
               <a class="person-name" href="#"></a>
               <a class="email" href="#"></a>
+              <a class="email-send" href="#" aria-label="Send email" title="Send email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M3 5h18v14H3z"></path>
+                  <path d="m3 6 9 7 9-7"></path>
+                  <path d="m15 16 2 2 4-4"></path>
+                </svg>
+              </a>
               <a class="btn" href="#">Email</a>
             </div>
       </div>
@@ -505,10 +515,14 @@ Object.keys(PROFILES).forEach(key => {
   data.bio.forEach(p => { const el = document.createElement('p'); el.textContent = p; bioEl.appendChild(el); });
   const personName = node.querySelector('.person-name');
   const emailLink = node.querySelector('.email');
+  const emailSend = node.querySelector('.email-send');
   personName.textContent = data.name;
   personName.href = 'mailto:' + data.email;
   emailLink.textContent = data.email;
   emailLink.href = 'mailto:' + data.email;
+  emailSend.href = 'mailto:' + data.email;
+  emailSend.setAttribute('aria-label', 'Send email to ' + data.name);
+  emailSend.title = 'Send email to ' + data.name;
   const btnLink = node.querySelector('.btn');
   btnLink.href = 'mailto:' + data.email;
   btnLink.textContent = 'Email ' + data.name;
@@ -520,6 +534,9 @@ Object.keys(PROFILES).forEach(key => {
     secondaryCard.querySelector('.person-name').href = 'mailto:' + data.secondaryContact.email;
     secondaryCard.querySelector('.email').textContent = data.secondaryContact.email;
     secondaryCard.querySelector('.email').href = 'mailto:' + data.secondaryContact.email;
+    secondaryCard.querySelector('.email-send').href = 'mailto:' + data.secondaryContact.email;
+    secondaryCard.querySelector('.email-send').setAttribute('aria-label', 'Send email to ' + data.secondaryContact.name);
+    secondaryCard.querySelector('.email-send').title = 'Send email to ' + data.secondaryContact.name;
     secondaryCard.querySelector('.col-h').textContent = 'Get in touch';
     secondaryCard.querySelector('.btn').remove();
     node.querySelector('.contact-people').appendChild(secondaryCard);
