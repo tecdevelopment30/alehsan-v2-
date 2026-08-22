@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALehsan — Developing Ventures All Over MENA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Zilla+Slab:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
+</script>
+
+<style>
+:root{
+  --ink:#0c1119; --panel:#151d29; --panel-2:#1c2635;
+  --line: rgba(212,184,118,0.18); --brass:#b08d4f; --brass-light:#dcc07f;
+  --teal:#3f7770; --paper:#ece7db; --muted:#8d95a3; --muted-2:#5c6474;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink); color:var(--paper); font-family:'Inter', sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden;}
+@media (prefers-reduced-motion: reduce){ *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;} }
+a{color:inherit;}
+.display{font-family:'Zilla Slab', serif;}
+.mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.08em; text-transform:uppercase;}
+:focus-visible{outline:2px solid var(--brass-light); outline-offset:3px;}
+button{font:inherit; cursor:pointer; background:none; border:none; color:inherit;}
+
+/* ===================== LIQUID GLASS (spec) ===================== */
+.liquid-glass {
+  background: rgba(0, 0, 0, 0.4);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 20%,
+    rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.1) 80%, rgba(255,255,255,0.3) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ===================== NAV ===================== */
+.vex-nav-wrap{position:fixed; top:0; left:0; right:0; z-index:100; padding:24px 6vw 0;}
+.vex-nav{border-radius:14px; padding:12px 20px; display:flex; align-items:center; justify-content:space-between;}
+.vex-logo{font-size:1.4rem; font-weight:600; letter-spacing:-0.01em; text-decoration:none;}
+.vex-logo span{color:var(--brass-light);}
+.vex-links{display:none; gap:32px; list-style:none;}
+@media (min-width:768px){ .vex-links{display:flex;} }
+.vex-links a{font-size:0.85rem; color:#d1d5db; text-decoration:none; transition:color .2s ease;}
+.vex-links a:hover{color:#fff;}
+.vex-cta{background:#fff; color:#000; padding:9px 22px; border-radius:8px; font-size:0.84rem; font-weight:500; transition:background .2s ease;}
+.vex-cta:hover{background:#e5e5e5;}
+
+/* ===================== HERO (spec) ===================== */
+.vex-hero{position:relative; min-height:100svh; width:100%; overflow:hidden; background:#000;}
+.vex-hero video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;}
+.vex-hero-content{position:relative; z-index:10; min-height:100svh; display:flex; flex-direction:column; padding:0 6vw; }
+.vex-hero-inner{flex:1; display:flex; flex-direction:column; justify-content:flex-end; padding:140px 0 56px;}
+@media (min-width:1024px){ .vex-hero-inner{display:grid; grid-template-columns:1fr 1fr; align-items:end; gap:40px; padding-bottom:72px;} }
+
+.vex-badge{display:inline-flex; align-items:center; gap:8px; width:fit-content; padding:8px 16px; border-radius:999px; font-size:0.66rem; color:#e8e0cf; margin-bottom:20px;}
+.vex-badge::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--brass-light); box-shadow:0 0 8px var(--brass-light);}
+.vex-eyebrow{color:#c9cdd6; font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:14px; font-family:'IBM Plex Mono', monospace;}
+
+.vex-h1{font-size:clamp(2.6rem, 7vw, 5rem); font-weight:400; line-height:0.98; letter-spacing:-0.04em; margin-bottom:20px;}
+.vex-h1 .char{display:inline-block; opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .5s ease;}
+.vex-h1 .char.in{opacity:1; transform:translateX(0);}
+.vex-h1 br{display:block; content:'';}
+
+.vex-sub{font-size:1.05rem; color:#d1d5db; max-width:52ch; margin-bottom:24px; line-height:1.6; opacity:0; transition:opacity 1s ease;}
+.vex-sub.in{opacity:1;}
+.vex-btnrow{display:flex; flex-wrap:wrap; gap:16px; opacity:0; transition:opacity 1s ease;}
+.vex-btnrow.in{opacity:1;}
+.vex-btn-solid{background:#fff; color:#000; padding:14px 30px; border-radius:8px; font-weight:500; font-size:0.92rem; transition:background .2s ease;}
+.vex-btn-solid:hover{background:#e5e5e5;}
+.vex-btn-glass{border:1px solid rgba(255,255,255,0.2); color:#fff; padding:14px 30px; border-radius:8px; font-weight:500; font-size:0.92rem; transition:background .2s ease, color .2s ease;}
+.vex-btn-glass:hover{background:#fff; color:#000;}
+
+.vex-tag-wrap{display:flex; align-items:flex-end; justify-content:flex-start; margin-top:32px; opacity:0; transition:opacity 1s ease;}
+@media (min-width:1024px){ .vex-tag-wrap{justify-content:flex-end; margin-top:0;} }
+.vex-tag-wrap.in{opacity:1;}
+.vex-tag{padding:14px 26px; border-radius:12px; font-size:1.15rem; font-weight:300; font-family:'Zilla Slab', serif;}
+
+.vex-stats{border-top:1px solid rgba(255,255,255,0.15); margin-top:44px; padding-top:20px; display:flex; gap:40px; flex-wrap:wrap;}
+.vex-stats .k{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:#9aa0ab; display:block; margin-bottom:6px; font-family:'IBM Plex Mono', monospace;}
+.vex-stats .v{font-family:'Zilla Slab', serif; font-size:1rem; color:#fff;}
+.vex-scroll{position:absolute; right:6vw; bottom:32px; writing-mode:vertical-rl; font-size:0.66rem; color:#c9cdd6; display:flex; align-items:center; gap:14px; z-index:10; letter-spacing:0.14em;}
+.vex-scroll::after{content:''; width:1px; height:44px; background:linear-gradient(#fff, transparent);}
+
+/* ===================== LOWER SECTIONS (brand system) ===================== */
+section.brand-section{padding:130px 6vw; position:relative;}
+.eyebrow{color:var(--brass-light); font-size:0.72rem; margin-bottom:20px; display:flex; align-items:center; gap:14px; font-family:'IBM Plex Mono', monospace; letter-spacing:0.08em; text-transform:uppercase;}
+.eyebrow::before{content:''; width:28px; height:1px; background:var(--brass-light);}
+
+.about{background:var(--ink); max-width:760px;}
+.about h2{font-size:clamp(2rem, 3.6vw, 3.1rem); font-weight:500; line-height:1.22; color:var(--paper);}
+.about h2 em{color:var(--brass-light); font-style:normal;}
+.about-body p{margin-top:22px; color:var(--muted); font-size:1.02rem; line-height:1.75; max-width:58ch;}
+.pillars{border-top:1px solid var(--line); margin-top:36px; padding-top:28px;}
+.pillar{display:flex; justify-content:space-between; align-items:baseline; padding:16px 0; border-bottom:1px solid var(--line); font-family:'Zilla Slab', serif; font-size:1.05rem;}
+.pillar span{font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--muted-2); letter-spacing:0.1em;}
+
+.heritage{border-top:1px solid var(--line); margin-top:36px; padding-top:28px; display:flex; flex-direction:column; gap:0;}
+.heritage-row{display:grid; grid-template-columns:110px 1fr; gap:20px; padding:14px 0;}
+.heritage-row .yr{font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--brass-light);}
+.heritage-row .tx{font-size:0.92rem; color:var(--muted); line-height:1.55;}
+
+.about-panel{background:var(--panel); border:1px solid var(--line); padding:44px 36px; position:relative;}
+.about-panel .quote{font-family:'Zilla Slab', serif; font-size:1.4rem; line-height:1.5; color:var(--paper);}
+.about-panel .quote-mark{display:block; font-size:3rem; color:var(--brass); line-height:0.4; margin-bottom:18px; font-family:'Zilla Slab', serif;}
+.about-panel .attrib{margin-top:26px; color:var(--muted-2); font-size:0.78rem; font-family:'IBM Plex Mono', monospace; letter-spacing:0.06em;}
+
+.directory{background:var(--panel-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.directory-head{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px; margin-bottom:60px;}
+.directory-head h2{font-size:clamp(2rem, 3.6vw, 3.1rem); font-weight:500;}
+.directory-head p{max-width:34ch; color:var(--muted); font-size:0.95rem; line-height:1.6;}
+.icon-grid{display:grid; grid-template-columns:repeat(4, 1fr); border-top:1px solid var(--line); border-left:1px solid var(--line);}
+.icon-card{border-right:1px solid var(--line); border-bottom:1px solid var(--line); padding:48px 32px; text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:26px; min-height:280px; position:relative; transition:background .35s ease; text-align:left; width:100%;}
+.icon-card:hover{background:rgba(176,141,79,0.06);}
+.icon-card .plaque-icon{width:56px; height:56px; border:1px solid var(--brass); display:flex; align-items:center; justify-content:center; color:var(--brass-light); transition:box-shadow .35s ease, transform .35s ease;}
+.icon-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;}
+.icon-card{border:1px solid rgba(220,192,127,0.22); border-radius:18px; padding:34px 28px; text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:26px; min-height:280px; position:relative; transition:background .35s ease, border-color .35s ease, transform .35s ease, box-shadow .35s ease; text-align:left; width:100%; background:linear-gradient(155deg, rgba(255,255,255,0.08), rgba(176,141,79,0.06) 52%, rgba(12,17,25,0.34)); box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);}
+.icon-card:hover{background:linear-gradient(155deg, rgba(220,192,127,0.16), rgba(176,141,79,0.08) 52%, rgba(12,17,25,0.34)); border-color:rgba(220,192,127,0.58); transform:translateY(-4px); box-shadow:0 18px 34px rgba(0,0,0,0.18);}
+.icon-card .plaque-icon{width:60px; height:60px; border:1px solid var(--brass); border-radius:16px; display:flex; align-items:center; justify-content:center; color:var(--brass-light); background:rgba(176,141,79,0.1); transition:box-shadow .35s ease, transform .35s ease, background .35s ease;}
+.icon-card:hover .plaque-icon{box-shadow:0 0 0 6px rgba(176,141,79,0.08); transform:rotate(-4deg);}
+.icon-card .plaque-icon svg{width:26px; height:26px;}
+.icon-card .card-title{font-family:'Zilla Slab', serif; font-size:1.28rem; font-weight:500; color:var(--paper);}
+.icon-card .card-desc{color:var(--muted); font-size:0.86rem; line-height:1.6;}
+.icon-card .plaque-icon svg{width:28px; height:28px;}
+.icon-card .card-title{font-family:'Zilla Slab', serif; font-size:clamp(1.2rem, 2vw, 1.55rem); font-weight:500; color:var(--paper); line-height:1.2;}
+.icon-card .card-desc{color:var(--muted); font-size:0.92rem; line-height:1.6;}
+.icon-card .card-arrow{margin-top:auto; display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono', monospace; font-size:0.66rem; letter-spacing:0.1em; color:var(--brass-light); text-transform:uppercase;}
+.icon-card .card-arrow svg{width:14px; height:14px; transition:transform .3s ease;}
+.icon-card:hover .card-arrow svg{transform:translateX(6px);}
+@media (max-width:900px){ .icon-grid{grid-template-columns:repeat(2, 1fr);} }
+@media (max-width:560px){ .icon-grid{grid-template-columns:1fr;} }
+@media (max-width:560px){ .icon-grid{grid-template-columns:1fr; gap:14px;} .icon-card{min-height:220px; padding:28px 22px;} }
+
+.strip{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line);}
+.strip div{padding:44px 6vw; border-right:1px solid var(--line);}
+.strip div:last-child{border-right:none;}
+.strip .num{font-family:'IBM Plex Mono', monospace; color:var(--brass-light); font-size:0.75rem; margin-bottom:10px;}
+.strip .lbl{font-family:'Zilla Slab', serif; font-size:1.2rem;}
+@media (max-width:760px){ .strip{grid-template-columns:1fr;} .strip div{border-right:none; border-bottom:1px solid var(--line);} }
+
+footer{padding:70px 6vw 40px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:30px; border-top:1px solid var(--line);}
+footer .brand{font-size:1.05rem; font-family:'Zilla Slab', serif; font-weight:600;}
+footer .brand span{color:var(--brass-light);}
+footer .cols{display:flex; gap:70px; flex-wrap:wrap;}
+footer .col-h{font-size:0.66rem; color:var(--muted-2); margin-bottom:12px; font-family:'IBM Plex Mono', monospace; letter-spacing:0.08em; text-transform:uppercase;}
+footer .col a, footer .col button{display:block; color:var(--muted); font-size:0.85rem; text-decoration:none; margin-bottom:8px; transition:color .2s; text-align:left;}
+footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
+.fine{width:100%; margin-top:50px; color:var(--muted-2); font-size:0.72rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:'IBM Plex Mono', monospace;}
+
+.reveal{opacity:0; transform:translateY(28px); transition:opacity .9s ease, transform .9s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+.profile-hero{min-height:56vh; display:flex; flex-direction:column; justify-content:flex-end; padding:180px 6vw 80px; border-bottom:1px solid var(--line); background:radial-gradient(circle at 85% 0%, rgba(176,141,79,0.10), transparent 55%), var(--panel);}
+.profile-back{display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; margin-bottom:40px; width:fit-content; transition:color .2s ease;}
+.profile-back:hover{color:var(--brass-light);}
+.profile-back svg{width:14px; height:14px;}
+.profile-tag{color:var(--brass-light); font-size:0.78rem; margin-bottom:18px; font-family:'IBM Plex Mono', monospace; letter-spacing:0.08em; text-transform:uppercase;}
+.profile-hero h1{font-family:'Zilla Slab', serif; font-size:clamp(2.6rem, 7vw, 5.4rem); font-weight:600;}
+.profile-role{margin-top:14px; color:var(--muted); font-size:1.05rem;}
+.profile-body{display:grid; grid-template-columns:1.3fr 0.7fr; gap:80px; padding:100px 6vw 140px;}
+.profile-bio p{color:var(--muted); font-size:1.05rem; line-height:1.8; margin-bottom:22px; max-width:60ch;}
+.profile-bio p:first-child{color:var(--paper); font-size:1.15rem;}
+.contact-card{background:var(--panel); border:1px solid var(--line); padding:36px 30px; height:fit-content;}
+.contact-card .col-h{font-size:0.66rem; color:var(--muted-2); margin-bottom:18px; font-family:'IBM Plex Mono', monospace; letter-spacing:0.08em; text-transform:uppercase;}
+.contact-card .email{font-family:'Zilla Slab', serif; font-size:1.25rem; color:var(--brass-light); text-decoration:none; word-break:break-all; display:block; margin-bottom:24px;}
+.contact-card .btn{display:inline-block; border:1px solid var(--brass); color:var(--paper); text-decoration:none; padding:12px 22px; font-size:0.8rem; letter-spacing:0.05em; transition:background .25s ease, color .25s ease;}
+.contact-card .btn:hover{background:var(--brass); color:var(--ink);}
+@media (max-width:900px){ .profile-body{grid-template-columns:1fr; gap:50px;} }
+@media (min-width:901px){ .profile-body .secondary-contact{grid-column:2;} }
+@media (max-width:900px){ .profile-body{grid-template-columns:1fr; gap:50px;} .profile-body .secondary-contact{grid-column:auto;} }
+
+.view{display:none;}
+.view.active{display:block;}
+
+/* ===================== AI CHAT WIDGET ===================== */
+.ai-panel{position:fixed; right:28px; bottom:28px; z-index:200; width:min(380px, calc(100vw - 40px)); height:min(560px, calc(100vh - 150px)); background:var(--panel); border:1px solid var(--line); box-shadow:0 20px 60px rgba(0,0,0,0.55); display:flex; flex-direction:column; overflow:hidden; opacity:0; transform:translateY(18px) scale(0.98); pointer-events:none; transition:opacity .3s ease, transform .3s ease;}
+.ai-panel.open{opacity:1; transform:translateY(0) scale(1); pointer-events:auto;}
+.ai-panel-head{padding:18px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:12px; background:var(--panel-2);}
+.ai-panel-head .ai-avatar{width:34px; height:34px; border:1px solid var(--brass); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--brass-light); flex-shrink:0;}
+.ai-panel-head .ai-avatar svg{width:18px; height:18px;}
+.ai-panel-head-text{flex:1;}
+.ai-panel-head-text .t{font-family:'Zilla Slab', serif; font-size:1rem; color:var(--paper);}
+.ai-panel-head-text .s{font-size:0.68rem; color:var(--muted-2); margin-top:2px;}
+.ai-panel-close{color:var(--muted); width:28px; height:28px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:color .2s, background .2s;}
+.ai-panel-close:hover{color:var(--paper); background:rgba(255,255,255,0.06);}
+.ai-panel-close svg{width:16px; height:16px;}
+.ai-messages{flex:1; overflow-y:auto; padding:18px 20px; display:flex; flex-direction:column; gap:14px;}
+.ai-msg{max-width:86%; font-size:0.88rem; line-height:1.55; padding:10px 14px; border-radius:2px;}
+.ai-msg.bot{align-self:flex-start; background:var(--panel-2); color:var(--paper); border:1px solid var(--line);}
+.ai-msg.user{align-self:flex-end; background:rgba(176,141,79,0.16); color:var(--paper); border:1px solid var(--brass);}
+.ai-msg.typing{align-self:flex-start; display:flex; gap:5px; padding:14px; background:var(--panel-2); border:1px solid var(--line);}
+.ai-msg.typing span{width:6px; height:6px; border-radius:50%; background:var(--muted); animation:aiTyping 1.2s ease-in-out infinite;}
+.ai-msg.typing span:nth-child(2){animation-delay:0.15s;}
+.ai-msg.typing span:nth-child(3){animation-delay:0.3s;}
+@keyframes aiTyping{ 0%,60%,100%{opacity:0.3; transform:translateY(0);} 30%{opacity:1; transform:translateY(-3px);} }
+.ai-input-row{border-top:1px solid var(--line); padding:14px; display:flex; gap:10px; align-items:flex-end;}
+.ai-input-row textarea{flex:1; resize:none; background:var(--ink); border:1px solid var(--line); color:var(--paper); font-family:'Inter', sans-serif; font-size:0.86rem; padding:10px 12px; max-height:90px; line-height:1.4;}
+.ai-input-row textarea:focus{outline:none; border-color:var(--brass);}
+.ai-send{flex-shrink:0; width:38px; height:38px; border:1px solid var(--brass); color:var(--brass-light); display:flex; align-items:center; justify-content:center; transition:background .2s, color .2s;}
+.ai-send:hover{background:var(--brass); color:var(--ink);}
+.ai-send svg{width:16px; height:16px;}
+@media (max-width:480px){ .ai-panel{right:12px; left:12px; width:auto; bottom:18px;} }
+
+/* Refined lower-page system */
+.about{max-width:none; padding-right:18vw; border-top:1px solid var(--line); background:linear-gradient(110deg, var(--ink) 0%, rgba(21,29,41,0.82) 100%);}
+.about-body{max-width:760px;}
+.about-body p:first-child{color:var(--paper); font-size:1.08rem;}
+.heritage{max-width:760px; border-top-color:rgba(220,192,127,0.32);}
+.directory{background:linear-gradient(135deg, #182231 0%, #101721 100%);}
+.directory-head{max-width:900px;}
+.directory-head h2{font-size:clamp(2.5rem, 5vw, 4.5rem); line-height:0.98;}
+.icon-grid{grid-template-columns:repeat(2, minmax(0, 1fr)); gap:18px; border:0; max-width:1120px;}
+.icon-card{min-height:300px; padding:38px 34px; border:1px solid rgba(220,192,127,0.22); border-radius:18px; background:linear-gradient(145deg, rgba(255,255,255,0.07), rgba(176,141,79,0.05) 52%, rgba(12,17,25,0.36)); box-shadow:inset 0 1px 0 rgba(255,255,255,0.08); transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease, background .35s ease;}
+.icon-card:nth-child(2){background:linear-gradient(145deg, rgba(63,119,112,0.22), rgba(255,255,255,0.04) 58%, rgba(12,17,25,0.38));}
+.icon-card:nth-child(3){background:linear-gradient(145deg, rgba(176,141,79,0.19), rgba(255,255,255,0.04) 58%, rgba(12,17,25,0.38));}
+.icon-card:nth-child(4){background:linear-gradient(145deg, rgba(108,78,55,0.22), rgba(255,255,255,0.04) 58%, rgba(12,17,25,0.38));}
+.icon-card:hover{transform:translateY(-6px); border-color:rgba(220,192,127,0.68); box-shadow:0 22px 40px rgba(0,0,0,0.24);}
+.icon-card .plaque-icon{width:68px; height:68px; border-radius:20px; background:rgba(12,17,25,0.36); box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);}
+.icon-card:nth-child(2) .plaque-icon{color:#9cdbd1; border-color:#5d9e94;}
+.icon-card:nth-child(3) .plaque-icon{color:#f0d18a; border-color:#c4a45b;}
+.icon-card:nth-child(4) .plaque-icon{color:#f0bb83; border-color:#c2834f;}
+.icon-card .card-title{font-size:clamp(1.35rem, 2.2vw, 1.9rem);}
+.icon-card .card-desc{max-width:34ch;}
+.profile-body{grid-template-columns:minmax(0, 1fr) minmax(320px, 0.75fr); align-items:start;}
+.contact-people{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:14px;}
+.contact-card{padding:28px 24px; border-radius:16px; background:linear-gradient(145deg, rgba(255,255,255,0.07), rgba(176,141,79,0.06));}
+.person-name{display:block; margin-bottom:8px; font-family:'Zilla Slab', serif; font-size:1.45rem; color:var(--paper); text-decoration:none;}
+.person-name:hover{color:var(--brass-light);}
+.email-only-contact .email{margin-bottom:0;}
+.email-only-contact .person-name{margin-bottom:12px;}
+@media (max-width:900px){
+  .about{padding-right:6vw;}
+  .icon-grid{grid-template-columns:1fr;}
+  .profile-body{grid-template-columns:1fr;}
+  .contact-people{grid-template-columns:repeat(2, minmax(0, 1fr));}
+}
+@media (max-width:560px){
+  .contact-people{grid-template-columns:1fr;}
+  .icon-card{min-height:240px; padding:28px 22px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV (liquid glass, fixed) ===================== -->
+<div class="vex-nav-wrap">
+  <nav class="vex-nav liquid-glass">
+    <button class="vex-logo" data-nav="home">AL<span>ehsan</span></button>
+    <ul class="vex-links">
+      <li><a href="#about" data-nav="home-about">About</a></li>
+      <li><a href="#directory" data-nav="home-directory">Divisions</a></li>
+      <li><a href="#contact" data-nav="home-contact">Contact</a></li>
+    </ul>
+    <button class="vex-cta js-open-chat">Start a Chat</button>
+  </nav>
+</div>
+
+<!-- ===================== HOME VIEW ===================== -->
+<main id="view-home" class="view active">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="vex-hero">
+    <video autoplay loop muted playsinline
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4">
+    </video>
+
+    <div class="vex-hero-content">
+      <div class="vex-hero-inner">
+        <div>
+          <h1 class="vex-h1 display" id="heroHeading" data-lines="Developing ventures|all over MENA."></h1>
+          <p class="vex-sub" id="heroSub">ALehsan was established in 2010 and has grown into a regional development house delivering project management, real estate, AI and automation systems, and construction engineering solutions across the MENA region.</p>
+          <div class="vex-btnrow" id="heroBtns">
+            <button class="vex-btn-solid js-open-chat">Start a Chat</button>
+            <a href="#directory" class="vex-btn-glass liquid-glass" data-nav="home-directory">Explore Now</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="brand-section about reveal" id="about">
+    <div>
+      <h2 class="display">A development company built to move projects <em>from concept to completion.</em></h2>
+      <div class="about-body">
+        <p>ALehsan grew from a family business with generations of roots in Arabia, tracing back to a trading enterprise started in the UAE in the 1970s. In the early 1990s, Al Majdal Contracting &amp; Trading Company was founded in Abu Dhabi, and in 2010, ALehsan International Company was established in Bahrain, carrying that legacy into a new regional chapter.</p>
+        <p>Since then, ALehsan has grown steadily into a multidisciplinary development company rooted in trusted execution and long-term value creation. We combine project leadership, operational discipline, market access, and technical delivery to move ventures forward with clarity from planning through realization.</p>
+        <p>Our work spans project management, construction contracting, steel galvanization, mechanical engineering, AI and automation systems, and real estate development — enabling clients and partners to execute across the broader MENA landscape.</p>
+      </div>
+      <div class="heritage">
+        <div class="heritage-row"><div class="yr">1970s</div><div class="tx">A family trading business takes root in the UAE, the origin of the group's presence in the region.</div></div>
+        <div class="heritage-row"><div class="yr">Early 1990s</div><div class="tx">Al Majdal Contracting &amp; Trading Company is founded in Abu Dhabi.</div></div>
+        <div class="heritage-row"><div class="yr">2010</div><div class="tx">ALehsan International Company is founded in Bahrain, formalizing the group's regional development arm.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DIRECTORY ===================== -->
+  <section class="brand-section directory reveal" id="directory">
+    <div class="directory-head">
+      <div>
+        <div class="eyebrow">The Directory</div>
+        <h2 class="display">Four divisions, one house.</h2>
+      </div>
+      <p>Select a division to meet the person behind it.</p>
+    </div>
+
+    <div class="icon-grid">
+      <button class="icon-card" data-nav="rajy">
+        <div class="plaque-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 3v3h6V3"/><path d="M8 11h8M8 15h5"/></svg></div>
+        <div><div class="card-title">Project Management</div><p class="card-desc">Plans, schedules, and delivers projects end to end.</p></div>
+        <div class="card-arrow">Meet the lead <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </button>
+
+      <button class="icon-card" data-nav="ismail">
+        <div class="plaque-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div><div class="card-title">AI &amp; Automation Systems</div><p class="card-desc">Smart systems that streamline operations and technical performance.</p></div>
+        <div class="card-arrow">Meet the lead <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </button>
+
+      <button class="icon-card" data-nav="bushra">
+        <div class="plaque-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/><path d="M9 12h.01M15 12h.01M9 8h.01M15 8h.01"/></svg></div>
+        <div><div class="card-title">Real Estate</div><p class="card-desc">Property development and strategic real estate opportunities.</p></div>
+        <div class="card-arrow">Meet the lead <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </button>
+
+      <button class="icon-card" data-nav="qusai">
+        <div class="plaque-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.1 2.1-2-2 2.1-2.1z"/></svg></div>
+        <div><div class="card-title">Construction &amp; Engineering</div><p class="card-desc">Construction contracting, steel galvanization, and mechanical engineering.</p></div>
+        <div class="card-arrow">Meet the lead <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </button>
+    </div>
+
+  </section>
+
+  <footer id="contact">
+    <button class="brand" data-nav="home">AL<span>ehsan</span></button>
+    <div class="cols">
+      <div class="col">
+        <div class="col-h">Divisions</div>
+        <button data-nav="rajy">Project Management</button>
+        <button data-nav="ismail">AI &amp; Automation</button>
+        <button data-nav="bushra">Real Estate</button>
+        <button data-nav="qusai">Construction &amp; Engineering</button>
+      </div>
+      <div class="col">
+        <div class="col-h">Company</div>
+        <a href="#about" data-nav="home-about">About Us</a>
+        <a href="#directory" data-nav="home-directory">Divisions</a>
+      </div>
+    </div>
+    <div class="fine">
+      <span>© 2026 ALehsan. All rights reserved.</span>
+      <span>MENA Region</span>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ===================== PROFILE VIEWS ===================== -->
+<template id="profile-template">
+  <main class="view">
+    <section class="profile-hero">
+      <button class="profile-back" data-nav="home-directory">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Back to Divisions
+      </button>
+      <div class="profile-tag mono"></div>
+      <h1></h1>
+      <p class="profile-role"></p>
+    </section>
+    <section class="profile-body">
+      <div class="profile-bio"></div>
+          <div class="contact-people">
+            <div class="contact-card">
+              <div class="col-h mono">Get in touch</div>
+              <a class="person-name" href="#"></a>
+              <a class="email" href="#"></a>
+              <a class="btn" href="#">Email</a>
+            </div>
+      </div>
+    </section>
+    <footer>
+      <button class="brand" data-nav="home">AL<span>ehsan</span></button>
+      <div class="cols">
+        <div class="col">
+          <div class="col-h mono">Divisions</div>
+          <button data-nav="rajy">Project Management</button>
+          <button data-nav="ismail">AI &amp; Automation</button>
+          <button data-nav="bushra">Real Estate</button>
+          <button data-nav="qusai">Construction &amp; Engineering</button>
+        </div>
+      </div>
+      <div class="fine">
+        <span>© 2026 ALehsan. All rights reserved.</span>
+        <span>MENA Region</span>
+      </div>
+    </footer>
+  </main>
+</template>
+
+<div id="profiles-mount"></div>
+
+<!-- ===================== AI CHAT WIDGET ===================== -->
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-panel-head">
+    <div class="ai-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z"/></svg></div>
+    <div class="ai-panel-head-text">
+      <div class="t">ALehsan Assistant</div>
+      <div class="s">Tell us what you need — we'll route it to the right person</div>
+    </div>
+    <button class="ai-panel-close" id="aiClose" aria-label="Close chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="ai-messages" id="aiMessages">
+    <div class="ai-msg bot">Hello! I'm the ALehsan virtual assistant. Tell me a bit about what you need — Project Management, AI &amp; Automation, Real Estate, or Construction &amp; Engineering — and I'll make sure the right person follows up.</div>
+  </div>
+  <div class="ai-input-row">
+    <textarea id="aiInput" rows="1" placeholder="Type your message…"></textarea>
+    <button class="ai-send" id="aiSend" aria-label="Send message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+  </div>
+</div>
+
+<script>
+const PROFILES = {
+  rajy: {
+    tag: "Project Management", name: "Mr Raji", role: "Head of Project Management, ALehsan",
+    bio: [
+      "Mr Raji leads the Project Management division at ALehsan, carrying projects from initial planning through to delivery.",
+      "The division sets the schedule every other part of the house works to — coordinating budgets, timelines, and the handoffs between planning, technical delivery, and supply so that projects land on time.",
+      "Clients and partners working with ALehsan on planning, scheduling, or project delivery are directed to Mr Raji as the first point of contact."
+    ],
+    email: "raji@alehsan-int.com"
+  },
+  ismail: {
+    tag: "AI & Automation Systems", name: "Mr Ismail", role: "Head of AI & Automation Systems, ALehsan",
+    bio: [
+      "Mr Ismail leads the AI & Automation Systems division at ALehsan, building the smart systems that streamline operations across the group and its clients.",
+      "The division covers technical delivery across every project the house takes on — from internal automation to AI-driven systems built for client engagements.",
+      "Clients and partners with an automation, AI, or systems question are directed to Mr Ismail as the first point of contact."
+    ],
+    email: "ismail@alehsan-int.com"
+  },
+  bushra: {
+    tag: "Real Estate", name: "Mrs Bushra", role: "Head of Real Estate, ALehsan",
+    bio: [
+      "Mrs Bushra leads the Real Estate division at ALehsan, focused on property development and strategic real estate opportunities across the region.",
+      "The division identifies, structures, and develops real estate ventures, drawing on local market knowledge across the MENA region.",
+      "Clients and partners interested in real estate development or investment opportunities are directed to Mrs Bushra as the first point of contact."
+    ],
+    email: "bushra@alehsan-int.com",
+    secondaryContact: {
+      name: "Mr Zeyad",
+      role: "Real Estate Division, ALehsan",
+      email: "zeyad@alehsan-int.com"
+    }
+  },
+  qusai: {
+    tag: "Construction & Engineering", name: "Mr Qusai", role: "Head of Construction & Engineering, ALehsan",
+    bio: [
+      "Mr Qusai leads the Construction & Engineering division at ALehsan, covering construction contracting, steel galvanization, and mechanical engineering.",
+      "The division delivers structural and engineering work for the group's own projects as well as external construction and industrial clients across the region.",
+      "Clients and partners with a construction, galvanization, or mechanical engineering need are directed to Mr Qusai as the first point of contact."
+    ],
+    email: "qusai@alehsan-int.com"
+  }
+};
+
+// Build profile views from template
+const mount = document.getElementById('profiles-mount');
+const tpl = document.getElementById('profile-template');
+Object.keys(PROFILES).forEach(key => {
+  const data = PROFILES[key];
+  const node = tpl.content.cloneNode(true);
+  const view = node.querySelector('.view');
+  view.id = 'view-' + key;
+  node.querySelector('.profile-tag').textContent = data.tag;
+  node.querySelector('h1').textContent = data.name;
+  node.querySelector('.profile-role').textContent = data.role;
+  const bioEl = node.querySelector('.profile-bio');
+  data.bio.forEach(p => { const el = document.createElement('p'); el.textContent = p; bioEl.appendChild(el); });
+  const personName = node.querySelector('.person-name');
+  const emailLink = node.querySelector('.email');
+  personName.textContent = data.name;
+  personName.href = 'mailto:' + data.email;
+  emailLink.textContent = data.email;
+  emailLink.href = 'mailto:' + data.email;
+  const btnLink = node.querySelector('.btn');
+  btnLink.href = 'mailto:' + data.email;
+  btnLink.textContent = 'Email ' + data.name;
+
+  if (data.secondaryContact) {
+    const secondaryCard = node.querySelector('.contact-card').cloneNode(true);
+    secondaryCard.classList.add('secondary-contact', 'email-only-contact');
+    secondaryCard.querySelector('.person-name').textContent = data.secondaryContact.name;
+    secondaryCard.querySelector('.person-name').href = 'mailto:' + data.secondaryContact.email;
+    secondaryCard.querySelector('.email').textContent = data.secondaryContact.email;
+    secondaryCard.querySelector('.email').href = 'mailto:' + data.secondaryContact.email;
+    secondaryCard.querySelector('.col-h').textContent = 'Get in touch';
+    secondaryCard.querySelector('.btn').remove();
+    node.querySelector('.contact-people').appendChild(secondaryCard);
+  }
+  mount.appendChild(node);
+});
+
+// Navigation
+function showView(id){
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('view-' + id) || document.getElementById('view-home');
+  target.classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function handleNav(key){
+  if(key === 'home'){ location.hash = ''; showView('home'); }
+  else if(key === 'home-about'){ location.hash = ''; showView('home'); setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}), 30); }
+  else if(key === 'home-directory'){ location.hash = ''; showView('home'); setTimeout(()=>document.getElementById('directory').scrollIntoView({behavior:'smooth'}), 30); }
+  else if(key === 'home-contact'){ location.hash = ''; showView('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}), 30); }
+  else if(PROFILES[key]){ location.hash = '#/' + key; showView(key); }
+}
+
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-nav]');
+  if(!el) return;
+  e.preventDefault();
+  handleNav(el.getAttribute('data-nav'));
+});
+
+function routeFromHash(){
+  const h = location.hash.replace('#/', '').replace('#', '');
+  if(PROFILES[h]) showView(h); else showView('home');
+}
+window.addEventListener('hashchange', routeFromHash);
+routeFromHash();
+
+// Scroll-reveal
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ===================== Hero entrance animation (spec) =====================
+(function(){
+  const heading = document.getElementById('heroHeading');
+  const lines = heading.getAttribute('data-lines').split('|');
+  const charDelay = 30;
+  const initialDelay = 200;
+
+  lines.forEach((line, lineIndex) => {
+    if(lineIndex > 0) heading.appendChild(document.createElement('br'));
+    const chars = line.split('');
+    chars.forEach((ch, charIndex) => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      const delay = initialDelay + (lineIndex * line.length * charDelay) + (charIndex * charDelay);
+      span.style.transitionDelay = delay + 'ms';
+      heading.appendChild(span);
+    });
+  });
+
+  const subEl = document.getElementById('heroSub');
+  const btnsEl = document.getElementById('heroBtns');
+  const tagEl = document.getElementById('heroTagWrap');
+  subEl.style.transitionDelay = '800ms';
+  btnsEl.style.transitionDelay = '1200ms';
+  tagEl.style.transitionDelay = '1400ms';
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      heading.querySelectorAll('.char').forEach(el => el.classList.add('in'));
+      subEl.classList.add('in');
+      btnsEl.classList.add('in');
+      tagEl.classList.add('in');
+    }, 50);
+  });
+})();
+
+// ===================== AI chat widget — connected to the ALehsan n8n AI assistant =====================
+(function(){
+  const WEBHOOK_URL = 'https://sammoo.app.n8n.cloud/webhook/alehsan-chat';
+  const sessionId = 'site-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+
+  const panel = document.getElementById('aiPanel');
+  const closeBtn = document.getElementById('aiClose');
+  const messages = document.getElementById('aiMessages');
+  const input = document.getElementById('aiInput');
+  const sendBtn = document.getElementById('aiSend');
+
+  function togglePanel(open){
+    panel.classList.toggle('open', open);
+    if(open) setTimeout(() => input.focus(), 250);
+  }
+  closeBtn.addEventListener('click', () => togglePanel(false));
+  document.querySelectorAll('.js-open-chat').forEach(btn => {
+    btn.addEventListener('click', (e) => { e.preventDefault(); togglePanel(true); });
+  });
+
+  function addMessage(text, who){
+    const el = document.createElement('div');
+    el.className = 'ai-msg ' + who;
+    el.textContent = text;
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+    return el;
+  }
+
+  function showTyping(){
+    const el = document.createElement('div');
+    el.className = 'ai-msg typing';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+    return el;
+  }
+
+  async function sendMessage(){
+    const text = input.value.trim();
+    if(!text) return;
+    addMessage(text, 'user');
+    input.value = '';
+    input.style.height = 'auto';
+    const typingEl = showTyping();
+    sendBtn.disabled = true;
+
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, sessionId: sessionId })
+      });
+      const data = await res.json();
+      typingEl.remove();
+      addMessage(data.reply || "Sorry, I couldn't process that — please try again.", 'bot');
+    } catch (err) {
+      typingEl.remove();
+      addMessage("I'm having trouble connecting right now. Please try again in a moment.", 'bot');
+    } finally {
+      sendBtn.disabled = false;
+    }
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); }
+  });
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 90) + 'px';
+  });
+})();
+</script>
+
+</body>
+</html>
