@@ -603,17 +603,14 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   const subEl = document.getElementById('heroSub');
   const btnsEl = document.getElementById('heroBtns');
-  const tagEl = document.getElementById('heroTagWrap');
   subEl.style.transitionDelay = '800ms';
   btnsEl.style.transitionDelay = '1200ms';
-  tagEl.style.transitionDelay = '1400ms';
 
   requestAnimationFrame(() => {
     setTimeout(() => {
       heading.querySelectorAll('.char').forEach(el => el.classList.add('in'));
       subEl.classList.add('in');
       btnsEl.classList.add('in');
-      tagEl.classList.add('in');
     }, 50);
   });
 })();
