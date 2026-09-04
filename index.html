@@ -463,7 +463,12 @@ const PROFILES = {
       "The division sets the schedule every other part of the house works to — coordinating budgets, timelines, and the handoffs between planning, technical delivery, and supply so that projects land on time.",
       "Clients and partners working with ALehsan on planning, scheduling, or project delivery are directed to Mr Raji as the first point of contact."
     ],
-    email: "raji@alehsan-int.com"
+    email: "raji@alehsan-int.com",
+    secondaryContact: {
+      name: "Raji Sarar",
+      role: "Project Management, ALehsan",
+      email: "raji.sarar@alehsan-int.com"
+    }
   },
   ismail: {
     tag: "AI & Automation Systems", name: "Mr Ismail", role: "Head of AI & Automation Systems, ALehsan",
@@ -536,9 +541,10 @@ Object.keys(PROFILES).forEach(key => {
     secondaryCard.querySelector('.email-send').href = 'mailto:' + data.secondaryContact.email;
     secondaryCard.querySelector('.email-send').setAttribute('aria-label', 'Send email to ' + data.secondaryContact.name);
     secondaryCard.querySelector('.email-send').title = 'Send email to ' + data.secondaryContact.name;
-    secondaryCard.querySelector('.col-h').textContent = 'Get in touch';
+    secondaryCard.querySelector('.col-h').textContent = 'Alternate contact';
     secondaryCard.querySelector('.btn').remove();
-    node.querySelector('.contact-people').appendChild(secondaryCard);
+    const contactPeople = node.querySelector('.contact-people');
+    contactPeople.insertBefore(secondaryCard, contactPeople.firstChild);
   }
   mount.appendChild(node);
 });
