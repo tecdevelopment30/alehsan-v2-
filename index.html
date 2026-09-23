@@ -80,10 +80,11 @@ button{font:inherit; cursor:pointer; background:none; border:none; color:inherit
 .vex-badge::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--brass-light); box-shadow:0 0 8px var(--brass-light);}
 .vex-eyebrow{color:#c9cdd6; font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:14px; font-family:'IBM Plex Mono', monospace;}
 
-.vex-h1{font-size:clamp(2.6rem, 7vw, 5rem); font-weight:400; line-height:0.98; letter-spacing:-0.04em; margin-bottom:20px;}
+.vex-h1{font-size:clamp(2.6rem, 7vw, 5rem); font-weight:400; line-height:0.98; letter-spacing:-0.04em; margin-bottom:20px; max-width:680px;}
 .vex-h1 .char{display:inline-block; opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .5s ease;}
 .vex-h1 .char.in{opacity:1; transform:translateX(0);}
 .vex-h1 br{display:block; content:'';}
+@media (max-width:560px){ .vex-h1{max-width:8.2ch; font-size:clamp(2.6rem, 12vw, 3.6rem); line-height:0.9;} }
 
 .vex-sub{font-size:1.05rem; color:#d1d5db; max-width:52ch; margin-bottom:24px; line-height:1.6; opacity:1; transition:opacity 1s ease;}
 .vex-sub.in{opacity:1;}
@@ -293,7 +294,7 @@ footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
     <div class="vex-hero-content">
       <div class="vex-hero-inner">
         <div>
-          <h1 class="vex-h1 display" id="heroHeading" data-lines="Developing ventures|all over MENA."></h1>
+          <h1 class="vex-h1 display" id="heroHeading" data-lines="Developing|ventures|all over MENA."></h1>
           <p class="vex-sub" id="heroSub">ALehsan was established in 2010 and has grown into a regional development house delivering project management, real estate, AI and automation systems, and construction engineering solutions across the MENA region.</p>
           <div class="vex-btnrow" id="heroBtns">
             <button class="vex-btn-solid js-open-chat">Start a Chat</button>
