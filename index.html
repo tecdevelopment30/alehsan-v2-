@@ -471,6 +471,9 @@ img,svg,video{display:block;}
 .sec.light.alt{background:#efe9dd;}
 @media (max-width:1000px){ .lead-grid{grid-template-columns:repeat(2, minmax(0,1fr));} .contact-strip{grid-template-columns:1fr 1fr;} }
 @media (max-width:640px){ .lead-grid,.cap-groups,.contact-strip{grid-template-columns:1fr;} .cap-group{padding:22px;} }
+.ai-chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;}
+.ai-chips button{border:1px solid rgba(220,192,127,0.45); color:var(--brass-light); background:rgba(176,141,79,0.08); padding:7px 12px; border-radius:999px; font-size:0.78rem; transition:background .2s, color .2s;}
+.ai-chips button:hover{background:var(--brass); color:var(--ink);}
 </style>
 </head>
 <body>
@@ -849,8 +852,18 @@ img,svg,video{display:block;}
     <button class="ai-panel-close" id="aiClose" aria-label="Close chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="ai-messages" id="aiMessages">
-    <div class="ai-msg bot">Hello! I'm the ALehsan virtual assistant. Tell me a bit about what you need — Project Management, AI &amp; Automation, Real Estate, or Construction &amp; Engineering — and I'll make sure the right person follows up.</div>
-    <div class="ai-msg bot" dir="rtl" lang="ar">أهلاً بك! أنا مساعد الإحسان الافتراضي. أخبرني باحتياجك وسأوصلك بالشخص المناسب.</div>
+    <div class="ai-msg bot">Hello! I'm the ALehsan assistant. I can explain our services, ask a few questions about your project, and send a written enquiry report straight to the right division lead.</div>
+    <div class="ai-msg bot" dir="rtl" lang="ar">أهلاً بك! أنا مساعد الإحسان. أشرح لك خدماتنا، وأسألك عن مشروعك، ثم أرسل تقريراً بطلبك مباشرة لمسؤول القسم المناسب.</div>
+    <div class="ai-chips" id="aiChips">
+      <button data-q="I'm interested in construction, MEP or engineering works.">Construction &amp; MEP</button>
+      <button data-q="I need project management support.">Project Management</button>
+      <button data-q="I'm interested in real estate development or investment.">Real Estate</button>
+      <button data-q="I need an interior design / fit-out service.">Interior Design</button>
+      <button data-q="I'm interested in AI, automation or robotics.">AI &amp; Automation</button>
+      <button data-q="I need data analysis, dashboards or a digital solution.">Data &amp; Digital</button>
+      <button data-q="I need oil &amp; gas services or trading / supply.">Oil &amp; Gas / Trading</button>
+      <button data-q="ما هي الخدمات التي تقدمونها؟" dir="rtl">ما هي خدماتكم؟</button>
+    </div>
   </div>
   <div class="ai-input-row">
     <textarea id="aiInput" rows="1" placeholder="Type your message…"></textarea>
@@ -1076,8 +1089,15 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     return el;
   }
 
+  const chips = document.getElementById('aiChips');
+  chips.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-q]'); if(!b) return;
+    input.value = b.getAttribute('data-q'); sendMessage();
+  });
+
   async function sendMessage(){
     const text = input.value.trim();
+    if(text && chips) chips.remove();
     if(!text) return;
     addMessage(text, 'user');
     history.push({ role: 'user', text });

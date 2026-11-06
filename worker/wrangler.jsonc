@@ -1,11 +1,17 @@
 {
   // Deploy from this folder with: npx wrangler deploy
-  // Secret: npx wrangler secret put GEMINI_API_KEY
+  // Secrets: npx wrangler secret put GEMINI_API_KEY / ADMIN_TOKEN
   "name": "alehsan-assistant",
   "main": "chat-worker.js",
   "compatibility_date": "2026-10-15",
-  "routes": [{ "pattern": "alehsan-int.com/api/*", "zone_name": "alehsan-int.com" }],
+  "routes": [
+    { "pattern": "alehsan-int.com/api/*", "zone_name": "alehsan-int.com" },
+    { "pattern": "www.alehsan-int.com/api/*", "zone_name": "alehsan-int.com" }
+  ],
   "send_email": [{ "name": "EMAIL" }],
+  "d1_databases": [{ "binding": "DB", "database_name": "alehsan-leads", "database_id": "6781ee08-a742-4cc8-b7cf-4a9758773c44" }],
+  "triggers": { "crons": ["0 5 * * *"] },   // 08:00 Bahrain time
+  "observability": { "enabled": true },
   "vars": { "LEAD_FROM": "assistant@alehsan-int.com" }
   // LEAD_TO is set in the dashboard (Settings → Variables) so the address stays out of this public repo.
 }
