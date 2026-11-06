@@ -431,6 +431,46 @@ img,svg,video{display:block;}
 .vex-nav.liquid-glass{background:rgba(10,14,20,0.84) !important; -webkit-backdrop-filter:blur(16px) saturate(140%); backdrop-filter:blur(16px) saturate(140%); border-color:rgba(255,255,255,0.08) !important;}
 .vex-nav .vex-links a{color:#e6e2d8;}
 .sec,.qhse-band,.site-footer{scroll-margin-top:96px;}
+
+/* ===== v4: leads first, grouped capabilities ===== */
+.lead-grid{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px;}
+.lead-card{background:#fff; border:1px solid var(--sand-line); border-radius:22px; padding:26px 26px 22px; display:flex; flex-direction:column; box-shadow:0 1px 0 rgba(24,32,44,0.04), 0 18px 36px -30px rgba(24,32,44,0.45); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;}
+.lead-card:hover{transform:translateY(-4px); border-color:rgba(138,106,51,0.45); box-shadow:0 26px 46px -30px rgba(24,32,44,0.55);}
+.lc-top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:22px;}
+.lc-avatar{width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:600; letter-spacing:0.04em; color:#fff; background:linear-gradient(140deg, #c9a866, #8a6a33); box-shadow:inset 0 0 0 3px rgba(255,255,255,0.35);}
+.lc-div{font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--brass-deep); text-align:right; max-width:60%; line-height:1.5;}
+.lc-name{font-size:1.6rem; color:var(--ink-text); line-height:1.15;}
+.lc-role{font-size:0.82rem; color:var(--ink-muted); margin-top:4px;}
+.lc-desc{font-size:0.92rem; line-height:1.6; color:var(--ink-muted); margin:14px 0 22px;}
+.lc-actions{margin-top:auto; padding-top:18px; border-top:1px solid var(--sand-line); display:flex; align-items:center; justify-content:space-between; gap:10px;}
+.lc-mail{display:flex; align-items:center; gap:8px; min-width:0; color:var(--ink-text); text-decoration:none; font-size:0.84rem;}
+.lc-mail svg{width:17px; height:17px; flex:none; color:var(--brass-deep);}
+.lc-mail span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.lc-mail:hover span{text-decoration:underline;}
+.lc-more{flex:none; display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:999px; background:var(--ink-text); color:#fff; font-size:0.76rem;}
+.lc-more svg{width:13px; height:13px;}
+.lc-more:hover{background:var(--brass-deep);}
+.contact-strip{margin-top:28px; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)) auto; gap:20px; align-items:center; background:var(--ink-text); color:#fff; border-radius:22px; padding:24px 28px;}
+.cs-k{font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--brass-light); margin-bottom:6px;}
+.contact-strip a, .contact-strip span{color:#fff; text-decoration:none; font-size:0.95rem;}
+.contact-strip a:hover{color:var(--brass-light);}
+.cs-chat{display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:999px; background:var(--brass-light); color:var(--ink); font-weight:500; font-size:0.86rem;}
+.cs-chat svg{width:14px; height:14px;}
+.cs-chat:hover{background:#fff;}
+.cap-groups{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:20px;}
+.cap-group{border:1px solid rgba(220,192,127,0.18); border-radius:22px; padding:28px; background:linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012));}
+.cg-head{display:flex; align-items:baseline; gap:14px; padding-bottom:18px; margin-bottom:6px; border-bottom:1px solid rgba(220,192,127,0.18);}
+.cg-n{font-size:0.72rem; color:var(--brass-light);}
+.cg-head h3{font-size:1.45rem; font-weight:500; color:var(--paper);}
+.cg-item{display:flex; gap:16px; align-items:flex-start; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.06);}
+.cg-item:last-child{border-bottom:0; padding-bottom:0;}
+.cg-ic{flex:none; width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; color:var(--brass-light); background:rgba(176,141,79,0.12); border:1px solid rgba(220,192,127,0.3);}
+.cg-ic svg{width:20px; height:20px;}
+.cg-t{font-weight:500; color:var(--paper); font-size:1rem; margin-bottom:3px;}
+.cg-d{color:#a3aab6; font-size:0.88rem; line-height:1.55;}
+.sec.light.alt{background:#efe9dd;}
+@media (max-width:1000px){ .lead-grid{grid-template-columns:repeat(2, minmax(0,1fr));} .contact-strip{grid-template-columns:1fr 1fr;} }
+@media (max-width:640px){ .lead-grid,.cap-groups,.contact-strip{grid-template-columns:1fr;} .cap-group{padding:22px;} }
 </style>
 </head>
 <body>
@@ -440,10 +480,10 @@ img,svg,video{display:block;}
   <nav class="vex-nav liquid-glass">
     <button class="vex-logo" data-nav="home">AL<span>ehsan</span></button>
     <ul class="vex-links">
-      <li><a href="#about" data-nav="home-about">History</a></li>
-      <li><a href="#capabilities" data-nav="home-capabilities">Capabilities</a></li>
-      <li><a href="#projects" data-nav="home-projects">Projects</a></li>
       <li><a href="#directory" data-nav="home-directory">Divisions</a></li>
+      <li><a href="#capabilities" data-nav="home-capabilities">Capabilities</a></li>
+      <li><a href="#about" data-nav="home-about">History</a></li>
+      <li><a href="#projects" data-nav="home-projects">Projects</a></li>
       <li><a href="#contact" data-nav="home-contact">Contact</a></li>
     </ul>
     <button class="vex-cta js-open-chat">Start a Chat</button>
@@ -481,6 +521,142 @@ img,svg,video{display:block;}
     </div>
   </section>
 
+  <!-- ===================== DIRECTORY ===================== -->
+  <section class="sec light" id="directory">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Division Leads</div>
+          <h2 class="display sec-h">Talk directly to the right person.</h2>
+        </div>
+        <p>Six divisions, one house. Email a lead directly, or start a chat and we will route you.</p>
+      </div>
+      <div class="lead-grid">
+      <article class="lead-card">
+        <div class="lc-top">
+          <div class="lc-avatar display">RA</div>
+          <div class="lc-div mono">Project Management</div>
+        </div>
+        <h3 class="lc-name display">Mr Raji</h3>
+        <div class="lc-role">Head of Project Management</div>
+        <p class="lc-desc">Planning, scheduling and end-to-end project delivery.</p>
+        <div class="lc-actions">
+          <a class="lc-mail" href="mailto:raji@alehsan-int.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>raji@alehsan-int.com</span></a>
+          <button class="lc-more" data-nav="rajy" aria-label="View Mr Raji">Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+      <article class="lead-card">
+        <div class="lc-top">
+          <div class="lc-avatar display">QU</div>
+          <div class="lc-div mono">Construction &amp; Engineering</div>
+        </div>
+        <h3 class="lc-name display">Mr Qusai</h3>
+        <div class="lc-role">Head of Construction &amp; Engineering</div>
+        <p class="lc-desc">Civil works, MEP, steel and mechanical engineering, oil &amp; gas.</p>
+        <div class="lc-actions">
+          <a class="lc-mail" href="mailto:qusai@alehsan-int.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>qusai@alehsan-int.com</span></a>
+          <button class="lc-more" data-nav="qusai" aria-label="View Mr Qusai">Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+      <article class="lead-card">
+        <div class="lc-top">
+          <div class="lc-avatar display">BU</div>
+          <div class="lc-div mono">Real Estate</div>
+        </div>
+        <h3 class="lc-name display">Mrs Bushra</h3>
+        <div class="lc-role">Head of Real Estate</div>
+        <p class="lc-desc">Property development and investment opportunities.</p>
+        <div class="lc-actions">
+          <a class="lc-mail" href="mailto:bushra@alehsan-int.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>bushra@alehsan-int.com</span></a>
+          <button class="lc-more" data-nav="bushra" aria-label="View Mrs Bushra">Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+      <article class="lead-card">
+        <div class="lc-top">
+          <div class="lc-avatar display">SA</div>
+          <div class="lc-div mono">Interior Design</div>
+        </div>
+        <h3 class="lc-name display">Mr Saeb</h3>
+        <div class="lc-role">Head of Interior Design</div>
+        <p class="lc-desc">Residential, commercial and hospitality interiors and fit-out.</p>
+        <div class="lc-actions">
+          <a class="lc-mail" href="mailto:saeb@alehsan-int.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>saeb@alehsan-int.com</span></a>
+          <button class="lc-more" data-nav="saeb" aria-label="View Mr Saeb">Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+      <article class="lead-card">
+        <div class="lc-top">
+          <div class="lc-avatar display">IS</div>
+          <div class="lc-div mono">AI &amp; Automation Systems</div>
+        </div>
+        <h3 class="lc-name display">Mr Ismail</h3>
+        <div class="lc-role">Head of AI &amp; Automation</div>
+        <p class="lc-desc">Process automation, smart buildings and AI systems.</p>
+        <div class="lc-actions">
+          <a class="lc-mail" href="mailto:ismail@alehsan-int.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>ismail@alehsan-int.com</span></a>
+          <button class="lc-more" data-nav="ismail" aria-label="View Mr Ismail">Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+      <article class="lead-card">
+        <div class="lc-top">
+          <div class="lc-avatar display">MO</div>
+          <div class="lc-div mono">Data Analysis &amp; Digital Solutions</div>
+        </div>
+        <h3 class="lc-name display">Mr Mouad</h3>
+        <div class="lc-role">Head of Data &amp; Digital</div>
+        <p class="lc-desc">Dashboards, analytics and digital platforms.</p>
+        <div class="lc-actions">
+          <a class="lc-mail" href="mailto:mouad@alehsan-int.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>mouad@alehsan-int.com</span></a>
+          <button class="lc-more" data-nav="mouad" aria-label="View Mr Mouad">Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+      </div>
+      <div class="contact-strip">
+        <div><div class="cs-k mono">General enquiries</div><a href="mailto:info@alehsan-int.com">info@alehsan-int.com</a></div>
+        <div><div class="cs-k mono">Phone</div><a href="tel:+9715665946">+971 566 5946</a></div>
+        <div><div class="cs-k mono">Head office</div><span>Juffair, Manama, Kingdom of Bahrain</span></div>
+        <button class="cs-chat js-open-chat">Start a Chat <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CAPABILITIES ===================== -->
+  <section class="sec dark" id="capabilities">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Services &amp; Products</div>
+          <h2 class="display sec-h">Ten capabilities in four practices.</h2>
+        </div>
+        <p>Every project is delivered on a disciplined schedule using Primavera and MS Project.</p>
+      </div>
+      <div class="cap-groups">
+      <div class="cap-group">
+        <div class="cg-head"><span class="cg-n mono">01</span><h3 class="display">Engineering &amp; Construction</h3></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-5h6v5"/></svg></span><div><div class="cg-t">Civil Construction</div><div class="cg-d">Industrial, commercial and residential buildings; marina maintenance.</div></div></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><div><div class="cg-t">MEP Works</div><div class="cg-d">Electrical, mechanical, piping, cranes and fire-fighting networks.</div></div></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><div><div class="cg-t">Project Management</div><div class="cg-d">Tendering, procurement, design and value engineering.</div></div></div>
+      </div>
+      <div class="cap-group">
+        <div class="cg-head"><span class="cg-n mono">02</span><h3 class="display">Energy &amp; Trade</h3></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2s6 7 6 12a6 6 0 0 1-12 0c0-5 6-12 6-12z"/></svg></span><div><div class="cg-t">Oil &amp; Gas Services</div><div class="cg-d">Consultancy, inspection &amp; NDT, environmental solutions, maintenance.</div></div></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h13l-3-3M21 17H8l3 3"/></svg></span><div><div class="cg-t">Commercial &amp; Trading</div><div class="cg-d">Cement, building materials, machinery, heavy and marine equipment.</div></div></div>
+      </div>
+      <div class="cap-group">
+        <div class="cg-head"><span class="cg-n mono">03</span><h3 class="display">Property &amp; Design</h3></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 21V9l8-6 8 6v12"/><path d="M10 21v-6h4v6"/></svg></span><div><div class="cg-t">Real Estate</div><div class="cg-d">Development, feasibility, investment structuring, facilities management.</div></div></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 18v-5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v5"/><path d="M2 18h20M6 18v3M18 18v3"/></svg></span><div><div class="cg-t">Interior Design</div><div class="cg-d">Concept, space planning, materials and fit-out.</div></div></div>
+      </div>
+      <div class="cap-group">
+        <div class="cg-head"><span class="cg-n mono">04</span><h3 class="display">Technology</h3></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="14" height="14" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3"/></svg></span><div><div class="cg-t">AI &amp; Automation</div><div class="cg-d">Process automation, predictive maintenance, smart buildings.</div></div></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V11M10 20V5M16 20v-6M22 20H2"/></svg></span><div><div class="cg-t">Data &amp; Digital</div><div class="cg-d">BI dashboards, data pipelines, web platforms.</div></div></div>
+        <div class="cg-item"><span class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="2"/><path d="M12 7v4M7 21l2-7h6l2 7M5 11h14"/></svg></span><div><div class="cg-t">Robotics &amp; Mechatronics</div><div class="cg-d">Robotic inspection, mechatronic design, retrofits.</div></div></div>
+      </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== ABOUT ===================== -->
   <section class="sec light reveal" id="about">
     <div class="wrap about-grid">
@@ -506,33 +682,17 @@ img,svg,video{display:block;}
     </div>
   </section>
 
-  <!-- ===================== CAPABILITIES ===================== -->
-  <section class="sec dark reveal" id="capabilities">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <div class="eyebrow">Services &amp; Products</div>
-          <h2 class="display sec-h">A full range of engineering and contracting services.</h2>
-        </div>
-        <p>Every project is delivered on a disciplined schedule using planning software such as Primavera and MS Project.</p>
-      </div>
-    <div class="cap-grid">
-      <div class="cap"><div class="cap-n mono">01</div><h3 class="display">Civil Construction</h3><p>Industrial, commercial and residential construction, plus marina maintenance.</p></div>
-      <div class="cap"><div class="cap-n mono">02</div><h3 class="display">MEP Works</h3><p>Cable laying, switchgear, control panels, fire alarms; piping (CS, SS, GRP, HDPE), pumps, steel structures, cranes and fire-fighting networks.</p></div>
-      <div class="cap"><div class="cap-n mono">03</div><h3 class="display">Project Management &amp; Value Engineering</h3><p>Tendering, procurement, planning, concept and detailed design, legal consultation and value engineering.</p></div>
-      <div class="cap"><div class="cap-n mono">04</div><h3 class="display">Oil &amp; Gas Services</h3><p>Technical consultancy, training, inspection &amp; NDT testing, field environmental solutions, and maintenance with international partners.</p></div>
-      <div class="cap"><div class="cap-n mono">05</div><h3 class="display">Commercial &amp; Trading</h3><p>Import and export of cement, building materials, electrical goods, machinery, and heavy and marine equipment, with full after-sales support.</p></div>
-      <div class="cap"><div class="cap-n mono">06</div><h3 class="display">AI &amp; Automation</h3><p>Process automation and control integration, predictive maintenance, analytics dashboards, and smart-building automation.</p></div>
-      <div class="cap"><div class="cap-n mono">07</div><h3 class="display">Real Estate Development</h3><p>Residential, commercial and mixed-use projects: land acquisition, feasibility, investment structuring, delivery and facilities management.</p></div>
-      <div class="cap"><div class="cap-n mono">08</div><h3 class="display">Robotics &amp; Mechatronics</h3><p>Robotic inspection and maintenance systems, mechatronic design, automation retrofits, training and after-sales service.</p></div>
-      <div class="cap"><div class="cap-n mono">09</div><h3 class="display">Interior Design</h3><p>Concept, space planning, materials and fit-out for residential, commercial and hospitality projects.</p></div>
-      <div class="cap"><div class="cap-n mono">10</div><h3 class="display">Data Analysis &amp; Digital Solutions</h3><p>Business intelligence, dashboards, data pipelines, web platforms and digital transformation.</p></div>
-    </div>
+  <!-- ===================== QHSE ===================== -->
+  <section class="qhse-band">
+    <div class="wrap qhse-grid">
+      <div class="q"><div class="q-k mono">Quality</div><p>Procedures aligned with API and ISO standards, audited on every site by a Quality Assurance Manager.</p></div>
+      <div class="q"><div class="q-k mono">Health &amp; Safety</div><p>A dedicated safety officer on each project and regular safety training at head office.</p></div>
+      <div class="q"><div class="q-k mono">Environment</div><p>Environmental monitoring, EIA, environmental management and waste-management plans.</p></div>
     </div>
   </section>
 
   <!-- ===================== PROJECTS ===================== -->
-  <section class="sec light reveal" id="projects">
+  <section class="sec light alt reveal" id="projects">
     <div class="wrap">
       <div class="sec-head">
         <div>
@@ -567,72 +727,6 @@ img,svg,video{display:block;}
         <div class="partner"><b>Business Solutions Co.</b><span>KSA · Business-support services</span></div>
       </div>
     </div>
-    </div>
-  </section>
-
-  <!-- ===================== QHSE ===================== -->
-  <section class="qhse-band">
-    <div class="wrap qhse-grid">
-      <div class="q"><div class="q-k mono">Quality</div><p>Procedures aligned with API and ISO standards, audited on every site by a Quality Assurance Manager.</p></div>
-      <div class="q"><div class="q-k mono">Health &amp; Safety</div><p>A dedicated safety officer on each project and regular safety training at head office.</p></div>
-      <div class="q"><div class="q-k mono">Environment</div><p>Environmental monitoring, EIA, environmental management and waste-management plans.</p></div>
-    </div>
-  </section>
-
-  <!-- ===================== DIRECTORY ===================== -->
-  <section class="sec dark reveal" id="directory">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <div class="eyebrow">The Directory</div>
-          <h2 class="display sec-h">Six divisions, one house.</h2>
-        </div>
-        <p>Select a division to meet the person behind it.</p>
-      </div>
-      <div class="div-grid">
-      <button class="div-card" data-nav="rajy">
-        <span class="div-num mono">01</span>
-        <span class="div-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 3v3h6V3"/><path d="M8 11h8M8 15h5"/></svg></span>
-        <span class="div-title display">Project Management</span>
-        <span class="div-desc">Plans, schedules, and delivers projects end to end.</span>
-        <span class="div-lead mono">Lead · Mr Raji <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </button>
-      <button class="div-card" data-nav="ismail">
-        <span class="div-num mono">02</span>
-        <span class="div-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/><circle cx="12" cy="12" r="3"/></svg></span>
-        <span class="div-title display">AI &amp; Automation Systems</span>
-        <span class="div-desc">Smart systems that streamline operations and technical performance.</span>
-        <span class="div-lead mono">Lead · Mr Ismail <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </button>
-      <button class="div-card" data-nav="bushra">
-        <span class="div-num mono">03</span>
-        <span class="div-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg></span>
-        <span class="div-title display">Real Estate</span>
-        <span class="div-desc">Property development and strategic real estate opportunities.</span>
-        <span class="div-lead mono">Lead · Mrs Bushra <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </button>
-      <button class="div-card" data-nav="qusai">
-        <span class="div-num mono">04</span>
-        <span class="div-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.1 2.1-2-2 2.1-2.1z"/></svg></span>
-        <span class="div-title display">Construction &amp; Engineering</span>
-        <span class="div-desc">Construction contracting, MEP, steel galvanization, and mechanical engineering.</span>
-        <span class="div-lead mono">Lead · Mr Qusai <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </button>
-      <button class="div-card" data-nav="saeb">
-        <span class="div-num mono">05</span>
-        <span class="div-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 21h18"/><path d="M5 21V10h14v11"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M9 15h6"/></svg></span>
-        <span class="div-title display">Interior Design</span>
-        <span class="div-desc">Residential, commercial and hospitality interiors, from concept to fit-out.</span>
-        <span class="div-lead mono">Lead · Mr Saeb <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </button>
-      <button class="div-card" data-nav="mouad">
-        <span class="div-num mono">06</span>
-        <span class="div-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
-        <span class="div-title display">Data Analysis &amp; Digital Solutions</span>
-        <span class="div-desc">Analytics, dashboards, and digital platforms that turn data into decisions.</span>
-        <span class="div-lead mono">Lead · Mr Mouad <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </button>
-      </div>
     </div>
   </section>
 
