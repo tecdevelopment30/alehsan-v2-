@@ -6,7 +6,7 @@
   site is untouched by the Worker.
 
 ## Assistant
-- Gemini answers visitors (model `gemini-3.8-flash`, change with `GEMINI_MODEL`).
+- Gemini answers visitors (model `gemini-3.5-flash-lite`, falls back to `gemini-3.6-flash`, change with `GEMINI_MODEL`).
 - When a visitor leaves name + email/phone + need, the lead is emailed through
   Cloudflare Email Service (`send_email` binding) to `LEAD_TO`, a verified
   Email Routing destination. Subject line shows the division. Free on Workers Free.

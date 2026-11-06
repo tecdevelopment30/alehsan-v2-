@@ -9,9 +9,10 @@
 //   EMAIL            (send_email binding)
 //   LEAD_TO          (text) verified Email Routing destination that receives leads
 //   LEAD_FROM        (text, optional) default: assistant@alehsan-int.com
-//   GEMINI_MODEL     (text, optional) default: gemini-3.8-flash
+//   GEMINI_MODEL     (text, optional) default: gemini-3.5-flash-lite
 
-const DEFAULT_MODEL = 'gemini-3.8-flash';
+const DEFAULT_MODEL = 'gemini-3.5-flash-lite';
+const FALLBACK_MODEL = 'gemini-3.6-flash';
 const MAX_TURNS = 20;          // history messages kept per request
 const MAX_CHARS = 2000;        // per message
 
@@ -96,7 +97,7 @@ async function onPost(request, env) {
 
   try {
     for (let step = 0; step < 3; step++) {
-      const data = await callGemini(env, contents);
+      const data = await callGeminiWithFallback(env, contents);
       const content = data?.candidates?.[0]?.content;
       const parts = content?.parts || [];
       const call = parts.find(p => p.functionCall)?.functionCall;
@@ -119,13 +120,19 @@ async function onPost(request, env) {
     }
     return json({ reply: 'Thank you — our team will be in touch shortly.', leadSent }, 200, cors);
   } catch (err) {
-    console.error(err);
+    console.log('CHAT_ERR ' + String(err && err.message || err).replace(/\s+/g, ' '));
     return json({ reply: "I'm having trouble right now. Please email info@alehsan-int.com", leadSent }, 502, cors);
   }
 }
 
-async function callGemini(env, contents) {
-  const model = env.GEMINI_MODEL || DEFAULT_MODEL;
+async function callGeminiWithFallback(env, contents) {
+  const primary = env.GEMINI_MODEL || DEFAULT_MODEL;
+  try { return await callGemini(env, contents, primary); }
+  catch (e) { console.log('GEMINI_FAIL ' + primary + ' ' + String(e.message || e).replace(/\s+/g, ' ')); }
+  return callGemini(env, contents, FALLBACK_MODEL);
+}
+
+async function callGemini(env, contents, model) {
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY },
@@ -133,10 +140,11 @@ async function callGemini(env, contents) {
       systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
       contents,
       tools: TOOLS,
-      generationConfig: { temperature: 0.4, maxOutputTokens: 600 },
+      generationConfig: { temperature: 0.4, maxOutputTokens: 1024 },
     }),
+    signal: AbortSignal.timeout(15000),
   });
-  if (!res.ok) throw new Error(`Gemini ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  if (!res.ok) throw new Error(`Gemini ${model} ${res.status}: ${(await res.text()).slice(0, 400).replace(/\s+/g, ' ')}`);
   return res.json();
 }
 
