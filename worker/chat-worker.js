@@ -1,13 +1,15 @@
-// ALehsan Assistant — Cloudflare Pages Function (POST /api/chat)
+// ALehsan Assistant — Cloudflare Worker on route alehsan-int.com/api/*
+// The site itself stays on GitHub Pages; this Worker only answers /api/chat.
 // Gemini answers visitors; when a visitor leaves contact details, the lead is
-// emailed to the right division head through Brevo. No n8n, no subscriptions.
+// emailed through Cloudflare Email Service (send_email binding) to a verified
+// Email Routing destination. Free: no n8n, no Brevo, no subscription.
 //
-// Environment variables (Cloudflare Pages → Settings → Variables and Secrets):
+// Bindings / variables (Workers → alehsan-assistant → Settings):
 //   GEMINI_API_KEY   (secret, required)  Google AI Studio key
-//   BREVO_API_KEY    (secret, required for lead emails)
-//   GEMINI_MODEL     (optional)  default: gemini-3.8-flash
-//   BREVO_SENDER     (optional)  default: assistant@alehsan-int.com
-//   LEAD_CC          (optional)  e.g. info@alehsan-int.com — copied on every lead
+//   EMAIL            (send_email binding)
+//   LEAD_TO          (text) verified Email Routing destination that receives leads
+//   LEAD_FROM        (text, optional) default: assistant@alehsan-int.com
+//   GEMINI_MODEL     (text, optional) default: gemini-3.8-flash
 
 const DEFAULT_MODEL = 'gemini-3.8-flash';
 const MAX_TURNS = 20;          // history messages kept per request
@@ -70,13 +72,13 @@ function corsHeaders(request) {
   return ok ? { 'Access-Control-Allow-Origin': origin, 'Vary': 'Origin' } : {};
 }
 
-export async function onRequestOptions({ request }) {
+async function onOptions(request) {
   return new Response(null, { headers: { ...corsHeaders(request), 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' } });
 }
 
-export async function onRequestPost({ request, env }) {
+async function onPost(request, env) {
   const cors = corsHeaders(request);
-  if (!env.GEMINI_API_KEY) return json({ reply: 'The assistant is not configured yet. Please email info@alehsan-int.com.' }, 500, cors);
+  if (!env.GEMINI_API_KEY) return json({ reply: 'The assistant is not configured yet. Please email info@alehsan-int.com.' }, 503, cors);
 
   let body;
   try { body = await request.json(); } catch { return json({ error: 'bad json' }, 400, cors); }
@@ -141,40 +143,40 @@ async function callGemini(env, contents) {
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 async function sendLead(env, a, history) {
-  if (!env.BREVO_API_KEY) return { ok: false, error: 'Email service not configured' };
+  if (!env.EMAIL || !env.LEAD_TO) return { ok: false, error: 'Email service not configured' };
   const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(a.email || '') ? a.email.trim() : '';
   const phone = String(a.phone || '').replace(/[^\d+\s()-]/g, '').trim();
   if (!a.name || (!email && !phone)) return { ok: false, error: 'Need name and an email or phone first' };
 
   const div = DIVISIONS[a.division] || DIVISIONS.general;
-  const to = div.to.map(e => ({ email: e }));
-  const cc = env.LEAD_CC ? [{ email: env.LEAD_CC }] : undefined;
   const transcript = history.slice(-MAX_TURNS)
     .map(m => `<p><b>${m.role === 'bot' ? 'Assistant' : 'Visitor'}:</b> ${esc(m.text).slice(0, MAX_CHARS)}</p>`).join('');
-
+  const rows = [['Division', div.label], ['For', div.to.join(', ')], ['Name', a.name], ['Email', email || '—'], ['Phone', phone || '—'],
+    ['Company', a.company || '—'], ['Language', a.language || '—'], ['Need', a.summary]];
   const html = `<h2>New website enquiry — ${esc(div.label)}</h2>
-<table cellpadding="6" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px">
-<tr><td><b>Name</b></td><td>${esc(a.name)}</td></tr>
-<tr><td><b>Email</b></td><td>${esc(email || '—')}</td></tr>
-<tr><td><b>Phone</b></td><td>${esc(phone || '—')}</td></tr>
-<tr><td><b>Company</b></td><td>${esc(a.company || '—')}</td></tr>
-<tr><td><b>Language</b></td><td>${esc(a.language || '—')}</td></tr>
-<tr><td><b>Need</b></td><td>${esc(a.summary)}</td></tr></table>
+<table cellpadding="6" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px">${rows.map(([k, v]) => `<tr><td><b>${k}</b></td><td>${esc(v)}</td></tr>`).join('')}</table>
 <h3>Conversation</h3><div style="font-family:Arial,sans-serif;font-size:13px;color:#333">${transcript}</div>
 <p style="color:#888;font-size:12px">Sent automatically by the ALehsan Assistant on alehsan-int.com</p>`;
+  const text = rows.map(([k, v]) => `${k}: ${v}`).join('\n') + '\n\n' + history.slice(-MAX_TURNS).map(m => `${m.role === 'bot' ? 'Assistant' : 'Visitor'}: ${m.text}`).join('\n');
 
-  const payload = {
-    sender: { name: 'ALehsan Assistant', email: env.BREVO_SENDER || 'assistant@alehsan-int.com' },
-    to, ...(cc && { cc }),
-    ...(email && { replyTo: { email, name: String(a.name).slice(0, 80) } }),
-    subject: `New enquiry (${div.label}) — ${String(a.name).slice(0, 80)}`,
-    htmlContent: html,
-  };
-  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'accept': 'application/json', 'api-key': env.BREVO_API_KEY },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) { console.error('Brevo', res.status, await res.text()); return { ok: false, error: 'Email could not be sent' }; }
+  try {
+    await env.EMAIL.send({
+      from: { email: env.LEAD_FROM || 'assistant@alehsan-int.com', name: 'ALehsan Assistant' },
+      to: env.LEAD_TO,
+      ...(email && { replyTo: email }),
+      subject: `[${div.label}] New enquiry — ${String(a.name).slice(0, 80)}`,
+      html, text,
+    });
+  } catch (e) { console.error('email', e); return { ok: false, error: 'Email could not be sent' }; }
   return { ok: true, routed_to: div.label };
 }
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    if (url.pathname !== '/api/chat') return new Response('Not found', { status: 404 });
+    if (request.method === 'OPTIONS') return onOptions(request);
+    if (request.method === 'POST') return onPost(request, env);
+    return new Response('Method not allowed', { status: 405 });
+  },
+};

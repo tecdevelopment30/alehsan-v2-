@@ -1,0 +1,11 @@
+{
+  // Deploy from this folder with: npx wrangler deploy
+  // Secret: npx wrangler secret put GEMINI_API_KEY
+  "name": "alehsan-assistant",
+  "main": "chat-worker.js",
+  "compatibility_date": "2026-10-15",
+  "routes": [{ "pattern": "alehsan-int.com/api/*", "zone_name": "alehsan-int.com" }],
+  "send_email": [{ "name": "EMAIL" }],
+  "vars": { "LEAD_FROM": "assistant@alehsan-int.com" }
+  // LEAD_TO is set in the dashboard (Settings → Variables) so the address stays out of this public repo.
+}

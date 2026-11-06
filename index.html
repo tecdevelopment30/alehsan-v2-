@@ -751,7 +751,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 // ===================== AI chat widget — Gemini assistant served from /api/chat (Cloudflare Pages Function) =====================
 (function(){
   const CHAT_URL = '/api/chat';
-  const FALLBACK_URL = 'https://sammoo.app.n8n.cloud/webhook/alehsan-chat'; // remove after moving to Cloudflare Pages
+  const FALLBACK_URL = 'https://sammoo.app.n8n.cloud/webhook/alehsan-chat'; // remove once GEMINI_API_KEY is set on the Worker
   const sessionId = 'site-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
   const history = [];   // [{role:'user'|'bot', text}]
   let leadSent = false;
@@ -810,7 +810,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
         if (!res.ok && res.status !== 502 && res.status !== 500) throw new Error('no api');
         data = await res.json();
       } catch (e) {
-        // Fallback while the site is still on GitHub Pages (no /api/chat yet)
+        // Fallback to the old n8n webhook while the Worker has no Gemini key yet (503)
         const res2 = await fetch(FALLBACK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
