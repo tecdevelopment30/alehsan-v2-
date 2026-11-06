@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ALehsan — Developing Ventures All Over MENA</title>
+<meta name="description" content="Alehsan International Development Co. (AID) — engineering, construction, MEP, oil &amp; gas, trading, AI &amp; automation, real estate and robotics across the GCC. Est. Abu Dhabi 1968, registered in Bahrain since 2006.">
+<meta property="og:title" content="ALehsan International Development Co. (AID)">
+<meta property="og:description" content="Engineering, construction, oil &amp; gas, trading, AI &amp; automation, real estate and robotics across the GCC since 1968.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alehsan-int.com/">
+<meta name="theme-color" content="#0c1119">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230c1119'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' font-weight='700' text-anchor='middle' fill='%23dcc07f'%3EAL%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -162,6 +169,35 @@ section.brand-section{padding:130px 6vw; position:relative;}
 .strip .lbl{font-family:'Zilla Slab', serif; font-size:1.2rem;}
 @media (max-width:760px){ .strip{grid-template-columns:1fr;} .strip div{border-right:none; border-bottom:1px solid var(--line);} }
 
+.values-row{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:40px;}
+.value{border:1px solid var(--line); border-radius:16px; padding:24px; background:rgba(255,255,255,0.03);}
+.value-k{font-size:0.64rem; color:var(--brass-light); margin-bottom:8px;}
+.value-t{font-size:1.3rem; margin-bottom:8px;}
+.value p{color:var(--muted); font-size:0.9rem; line-height:1.6;}
+.caps{background:var(--ink); border-top:1px solid var(--line);}
+.cap-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+.cap{border:1px solid rgba(220,192,127,0.2); border-radius:16px; padding:26px 22px; background:linear-gradient(155deg, rgba(255,255,255,0.05), rgba(12,17,25,0.3)); transition:border-color .3s, transform .3s;}
+.cap:hover{border-color:rgba(220,192,127,0.55); transform:translateY(-3px);}
+.cap-n{font-size:0.68rem; color:var(--brass-light); margin-bottom:16px;}
+.cap h3{font-size:1.15rem; font-weight:500; margin-bottom:10px; line-height:1.3;}
+.cap p{color:var(--muted); font-size:0.86rem; line-height:1.6;}
+.projects{background:var(--panel-2); border-top:1px solid var(--line);}
+.proj-list{border-top:1px solid var(--line);}
+.proj{display:grid; grid-template-columns:150px 1.3fr 1.6fr 130px; gap:20px; align-items:baseline; padding:20px 0; border-bottom:1px solid var(--line);}
+.proj-loc{font-size:0.66rem; color:var(--muted-2);}
+.proj-name{font-size:1.15rem;}
+.proj-scope{color:var(--muted); font-size:0.86rem; line-height:1.5;}
+.proj-val{font-size:0.72rem; color:var(--brass-light); text-align:right;}
+.partners{margin-top:64px;}
+.partners .col-h{font-size:0.66rem; color:var(--muted-2); margin-bottom:14px;}
+.partner-row{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+.partner{border:1px solid var(--line); border-radius:12px; padding:16px 18px; display:flex; flex-direction:column; gap:6px;}
+.partner b{font-family:'Zilla Slab', serif; font-weight:500; font-size:1rem;}
+.partner span{color:var(--muted); font-size:0.78rem; line-height:1.45;}
+.qhse .lbl{font-size:1rem; line-height:1.5; color:var(--paper);}
+footer .contact-col p{color:var(--muted); font-size:0.85rem; line-height:1.6; margin-bottom:10px;}
+@media (max-width:1000px){ .cap-grid,.partner-row{grid-template-columns:1fr 1fr;} .proj{grid-template-columns:1fr; gap:6px;} .proj-val{text-align:left;} }
+@media (max-width:560px){ .cap-grid,.partner-row,.values-row{grid-template-columns:1fr;} }
 footer{padding:70px 6vw 40px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:30px; border-top:1px solid var(--line);}
 footer .brand{font-size:1.05rem; font-family:'Zilla Slab', serif; font-weight:600;}
 footer .brand span{color:var(--brass-light);}
@@ -212,6 +248,7 @@ footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
 .ai-msg{max-width:86%; font-size:0.88rem; line-height:1.55; padding:10px 14px; border-radius:2px;}
 .ai-msg.bot{align-self:flex-start; background:var(--panel-2); color:var(--paper); border:1px solid var(--line);}
 .ai-msg.user{align-self:flex-end; background:rgba(176,141,79,0.16); color:var(--paper); border:1px solid var(--brass);}
+.ai-msg{white-space:pre-wrap;}
 .ai-msg.typing{align-self:flex-start; display:flex; gap:5px; padding:14px; background:var(--panel-2); border:1px solid var(--line);}
 .ai-msg.typing span{width:6px; height:6px; border-radius:50%; background:var(--muted); animation:aiTyping 1.2s ease-in-out infinite;}
 .ai-msg.typing span:nth-child(2){animation-delay:0.15s;}
@@ -275,6 +312,8 @@ footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
     <button class="vex-logo" data-nav="home">AL<span>ehsan</span></button>
     <ul class="vex-links">
       <li><a href="#about" data-nav="home-about">History</a></li>
+      <li><a href="#capabilities" data-nav="home-capabilities">Capabilities</a></li>
+      <li><a href="#projects" data-nav="home-projects">Projects</a></li>
       <li><a href="#directory" data-nav="home-directory">Divisions</a></li>
       <li><a href="#contact" data-nav="home-contact">Contact</a></li>
     </ul>
@@ -295,10 +334,16 @@ footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
       <div class="vex-hero-inner">
         <div>
           <h1 class="vex-h1 display" id="heroHeading" data-lines="Developing|ventures|all over|MENA."></h1>
-          <p class="vex-sub" id="heroSub">ALehsan was established in 2010 and has grown into a regional development house delivering project management, real estate, AI and automation systems, and construction engineering solutions across the MENA region.</p>
+          <p class="vex-sub" id="heroSub">Rooted in Abu Dhabi since 1968 and registered in Bahrain since 2006, Alehsan International Development Co. (AID) delivers engineering, construction, oil &amp; gas, trading, AI &amp; automation, real estate and robotics solutions across the GCC and MENA.</p>
           <div class="vex-btnrow" id="heroBtns">
             <button class="vex-btn-solid js-open-chat">Start a Chat</button>
             <a href="#directory" class="vex-btn-glass liquid-glass" data-nav="home-directory">Explore Now</a>
+          </div>
+          <div class="vex-stats">
+            <div><span class="k">Heritage</span><span class="v">Since 1968</span></div>
+            <div><span class="k">Ownership</span><span class="v">100% GCC equity</span></div>
+            <div><span class="k">Equipment fleet</span><span class="v">81 units</span></div>
+            <div><span class="k">Flagship project</span><span class="v">USD 100M</span></div>
           </div>
         </div>
 
@@ -312,16 +357,87 @@ footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
     <div>
       <h2 class="display">A development company built to move projects <em>from concept to completion.</em></h2>
       <div class="about-body">
-        <p>ALehsan grew from a family business with generations of roots in Arabia, tracing back to a trading enterprise started in the UAE in the 1970s. In the early 1990s, Al Majdal Contracting &amp; Trading Company was founded in Abu Dhabi, and in 2010, ALehsan International Company was established in Bahrain, carrying that legacy into a new regional chapter.</p>
-        <p>Since then, ALehsan has grown steadily into a multidisciplinary development company rooted in trusted execution and long-term value creation. We combine project leadership, operational discipline, market access, and technical delivery to move ventures forward with clarity from planning through realization.</p>
-        <p>Our work spans project management, construction contracting, steel galvanization, mechanical engineering, AI and automation systems, and real estate development — enabling clients and partners to execute across the broader MENA landscape.</p>
+        <p>Alehsan International Development Co. (AID) is a mid-sized, financially strong company with 100% GCC-owned equity, registered in the Kingdom of Bahrain since 2006. Its business history traces back to Abu Dhabi in 1968, and AID remains one of a select group of professional engineering contractors contributing continuously to the region's construction and development sectors.</p>
+        <p>Since 2006 AID has completed numerous construction, trading, and oil &amp; gas engineering projects for public and private clients across civil, marine, oil &amp; gas and MEP works. Today that track record extends into Artificial Intelligence &amp; Automation, Real Estate development, and Robotics &amp; Mechatronics, carried out with the same discipline.</p>
+        <p>A wide network of vendors and strategic partners across the GCC, France, Norway, the UK and Germany lets AID meet each client's specific engineering requirements, onshore or offshore, or through complete contracts delivered with its international partners.</p>
       </div>
       <div class="heritage">
-        <div class="heritage-row"><div class="yr">1970s</div><div class="tx">A family trading business takes root in the UAE, the origin of the group's presence in the region.</div></div>
-        <div class="heritage-row"><div class="yr">Early 1990s</div><div class="tx">Al Majdal Contracting &amp; Trading Company is founded in Abu Dhabi.</div></div>
-        <div class="heritage-row"><div class="yr">2010</div><div class="tx">ALehsan International Company is founded in Bahrain, formalizing the group's regional development arm.</div></div>
+        <div class="heritage-row"><div class="yr">1968</div><div class="tx">The group's business history begins in Abu Dhabi, UAE.</div></div>
+        <div class="heritage-row"><div class="yr">1990</div><div class="tx">Al Majdal Contracting &amp; Trading is founded in the UAE, specialising in the design of multi-storey buildings.</div></div>
+        <div class="heritage-row"><div class="yr">2006</div><div class="tx">Alehsan International Development Co. (AID) is registered in the Kingdom of Bahrain.</div></div>
+        <div class="heritage-row"><div class="yr">2010</div><div class="tx">AIC, Alehsan International Contracting, is founded as the group's general contracting arm.</div></div>
+        <div class="heritage-row"><div class="yr">Today</div><div class="tx">AID expands into AI &amp; automation, real estate, and robotics &amp; mechatronics.</div></div>
+      </div>
+      <div class="values-row">
+        <div class="value"><div class="value-k mono">Value 01</div><div class="value-t display">Time</div><p>On-time mobilisation, on-time delivery of materials, and on-time fulfilment of every project.</p></div>
+        <div class="value"><div class="value-k mono">Value 02</div><div class="value-t display">Trust &amp; Loyalty</div><p>Relationships built on trust with customers and suppliers, with reciprocal loyalty as the result.</p></div>
       </div>
     </div>
+  </section>
+
+  <!-- ===================== CAPABILITIES ===================== -->
+  <section class="brand-section caps reveal" id="capabilities">
+    <div class="directory-head">
+      <div>
+        <div class="eyebrow">Services &amp; Products</div>
+        <h2 class="display">A full range of engineering and contracting services.</h2>
+      </div>
+      <p>Every project is delivered on a disciplined schedule using planning software such as Primavera and MS Project.</p>
+    </div>
+    <div class="cap-grid">
+      <div class="cap"><div class="cap-n mono">01</div><h3 class="display">Civil Construction</h3><p>Industrial, commercial and residential construction, plus marina maintenance.</p></div>
+      <div class="cap"><div class="cap-n mono">02</div><h3 class="display">MEP Works</h3><p>Cable laying, switchgear, control panels, fire alarms; piping (CS, SS, GRP, HDPE), pumps, steel structures, cranes and fire-fighting networks.</p></div>
+      <div class="cap"><div class="cap-n mono">03</div><h3 class="display">Project Management &amp; Value Engineering</h3><p>Tendering, procurement, planning, concept and detailed design, legal consultation and value engineering.</p></div>
+      <div class="cap"><div class="cap-n mono">04</div><h3 class="display">Oil &amp; Gas Services</h3><p>Technical consultancy, training, inspection &amp; NDT testing, field environmental solutions, and maintenance with international partners.</p></div>
+      <div class="cap"><div class="cap-n mono">05</div><h3 class="display">Commercial &amp; Trading</h3><p>Import and export of cement, building materials, electrical goods, machinery, and heavy and marine equipment, with full after-sales support.</p></div>
+      <div class="cap"><div class="cap-n mono">06</div><h3 class="display">AI &amp; Automation</h3><p>Process automation and control integration, predictive maintenance, analytics dashboards, and smart-building automation.</p></div>
+      <div class="cap"><div class="cap-n mono">07</div><h3 class="display">Real Estate Development</h3><p>Residential, commercial and mixed-use projects: land acquisition, feasibility, investment structuring, delivery and facilities management.</p></div>
+      <div class="cap"><div class="cap-n mono">08</div><h3 class="display">Robotics &amp; Mechatronics</h3><p>Robotic inspection and maintenance systems, mechatronic design, automation retrofits, training and after-sales service.</p></div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section class="brand-section projects reveal" id="projects">
+    <div class="directory-head">
+      <div>
+        <div class="eyebrow">Track Record</div>
+        <h2 class="display">Selected projects across the GCC.</h2>
+      </div>
+      <p>Landmark work by AID and its group companies in Bahrain, Saudi Arabia and the UAE.</p>
+    </div>
+    <div class="proj-list">
+      <div class="proj"><div class="proj-loc mono">Bahrain</div><div class="proj-name display">Bahrain National Assembly</div><div class="proj-scope">Artificial island and infrastructure works · Royal Court / Ministry of Works</div><div class="proj-val mono">USD 100M</div></div>
+      <div class="proj"><div class="proj-loc mono">KSA · Khafji</div><div class="proj-name display">Sewage Treatment Plant &amp; Marine Outfall</div><div class="proj-scope">Client: Al Kawther Company</div><div class="proj-val mono">USD 40M</div></div>
+      <div class="proj"><div class="proj-loc mono">UAE · Dubai</div><div class="proj-name display">Al Maktoum International (DWC) VVIP Building</div><div class="proj-scope">Aviation facilities</div><div class="proj-val mono">USD 30M</div></div>
+      <div class="proj"><div class="proj-loc mono">Bahrain · Manama</div><div class="proj-name display">Bahrain Financial Harbour</div><div class="proj-scope">Project management, consultancy, design &amp; build, value engineering · under Al Hamd Development</div><div class="proj-val mono">Design &amp; Build</div></div>
+      <div class="proj"><div class="proj-loc mono">Bahrain · Amwaj</div><div class="proj-name display">Tilal Towers</div><div class="proj-scope">Client: Al Matrook Development · 2010</div><div class="proj-val mono">Design &amp; Build</div></div>
+      <div class="proj"><div class="proj-loc mono">Bahrain</div><div class="proj-name display">Marina West Development</div><div class="proj-scope">Project management, design &amp; build, value engineering</div><div class="proj-val mono">PM · D&amp;B</div></div>
+      <div class="proj"><div class="proj-loc mono">Bahrain · Manama</div><div class="proj-name display">Marriott Hotel</div><div class="proj-scope">Project management, design &amp; build</div><div class="proj-val mono">PM · D&amp;B</div></div>
+      <div class="proj"><div class="proj-loc mono">Bahrain</div><div class="proj-name display">Al Dur &amp; Hidd Power Stations</div><div class="proj-scope">Engineering, infrastructure and road improvement works</div><div class="proj-val mono">Infrastructure</div></div>
+    </div>
+    <div class="partners">
+      <div class="col-h mono">International partners</div>
+      <div class="partner-row">
+        <div class="partner"><b>AGI</b><span>France · Oil &amp; gas technical services</span></div>
+        <div class="partner"><b>AAK</b><span>Norway · Training, inspection &amp; NDT</span></div>
+        <div class="partner"><b>Soiltech</b><span>Norway · Drilling-site environmental solutions</span></div>
+        <div class="partner"><b>RS Clare</b><span>UK · Flooring, lubricants &amp; road marking</span></div>
+      </div>
+      <div class="col-h mono" style="margin-top:34px">Group companies</div>
+      <div class="partner-row">
+        <div class="partner"><b>Al Majdal Contracting &amp; Trading</b><span>UAE · Multi-storey building design</span></div>
+        <div class="partner"><b>AIC</b><span>Bahrain · General contracting</span></div>
+        <div class="partner"><b>T.E.M.E</b><span>Bahrain · Structural metal products</span></div>
+        <div class="partner"><b>Business Solutions Co.</b><span>KSA · Business-support services</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== QHSE ===================== -->
+  <section class="strip qhse">
+    <div><div class="num">Quality</div><div class="lbl">Procedures aligned with API and ISO standards, audited on every site by a Quality Assurance Manager.</div></div>
+    <div><div class="num">Health &amp; Safety</div><div class="lbl">A dedicated safety officer on each project and regular safety training at head office.</div></div>
+    <div><div class="num">Environment</div><div class="lbl">Environmental monitoring, EIA, environmental management and waste-management plans.</div></div>
   </section>
 
   <!-- ===================== DIRECTORY ===================== -->
@@ -376,10 +492,19 @@ footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
         <div class="col-h">Company</div>
         <a href="#about" data-nav="home-about">About Us</a>
         <a href="#directory" data-nav="home-directory">Divisions</a>
+        <a href="#capabilities" data-nav="home-capabilities">Capabilities</a>
+        <a href="#projects" data-nav="home-projects">Projects</a>
+      </div>
+      <div class="col contact-col">
+        <div class="col-h">Head Office</div>
+        <p>Building 2752, Road 2442, Block 324<br>Juffair, Manama, Kingdom of Bahrain</p>
+        <a href="tel:+97336366661">+973 363 66661</a>
+        <a href="tel:+9715665946">+971 566 5946</a>
+        <a href="mailto:info@alehsan-int.com">info@alehsan-int.com</a>
       </div>
     </div>
     <div class="fine">
-      <span>© 2026 ALehsan. All rights reserved.</span>
+      <span>© 2026 Alehsan International Development Co. (AID). All rights reserved.</span>
       <span>MENA Region</span>
     </div>
   </footer>
@@ -448,6 +573,7 @@ footer .col a:hover, footer .col button:hover{color:var(--brass-light);}
   </div>
   <div class="ai-messages" id="aiMessages">
     <div class="ai-msg bot">Hello! I'm the ALehsan virtual assistant. Tell me a bit about what you need — Project Management, AI &amp; Automation, Real Estate, or Construction &amp; Engineering — and I'll make sure the right person follows up.</div>
+    <div class="ai-msg bot" dir="rtl" lang="ar">أهلاً بك! أنا مساعد الإحسان الافتراضي. أخبرني باحتياجك وسأوصلك بالشخص المناسب.</div>
   </div>
   <div class="ai-input-row">
     <textarea id="aiInput" rows="1" placeholder="Type your message…"></textarea>
@@ -562,6 +688,8 @@ function handleNav(key){
   if(key === 'home'){ location.hash = ''; showView('home'); }
   else if(key === 'home-about'){ location.hash = ''; showView('home'); setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}), 30); }
   else if(key === 'home-directory'){ location.hash = ''; showView('home'); setTimeout(()=>document.getElementById('directory').scrollIntoView({behavior:'smooth'}), 30); }
+  else if(key === 'home-capabilities'){ location.hash = ''; showView('home'); setTimeout(()=>document.getElementById('capabilities').scrollIntoView({behavior:'smooth'}), 30); }
+  else if(key === 'home-projects'){ location.hash = ''; showView('home'); setTimeout(()=>document.getElementById('projects').scrollIntoView({behavior:'smooth'}), 30); }
   else if(key === 'home-contact'){ location.hash = ''; showView('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}), 30); }
   else if(PROFILES[key]){ location.hash = '#/' + key; showView(key); }
 }
@@ -620,10 +748,11 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   });
 })();
 
-// ===================== AI chat widget — connected to the ALehsan n8n AI assistant =====================
+// ===================== AI chat widget — Gemini assistant served from /api/chat (Cloudflare Pages Function) =====================
 (function(){
-  const WEBHOOK_URL = 'https://sammoo.app.n8n.cloud/webhook/alehsan-chat';
-  const sessionId = 'site-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+  const CHAT_URL = '/api/chat';
+  const history = [];   // [{role:'user'|'bot', text}]
+  let leadSent = false;
 
   const panel = document.getElementById('aiPanel');
   const closeBtn = document.getElementById('aiClose');
@@ -662,20 +791,24 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     const text = input.value.trim();
     if(!text) return;
     addMessage(text, 'user');
+    history.push({ role: 'user', text });
     input.value = '';
     input.style.height = 'auto';
     const typingEl = showTyping();
     sendBtn.disabled = true;
 
     try {
-      const res = await fetch(WEBHOOK_URL, {
+      const res = await fetch(CHAT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, sessionId: sessionId })
+        body: JSON.stringify({ history: history.slice(-20), leadSent })
       });
       const data = await res.json();
       typingEl.remove();
-      addMessage(data.reply || "Sorry, I couldn't process that — please try again.", 'bot');
+      if (data.leadSent) leadSent = true;
+      const reply = data.reply || "Sorry, I couldn't process that — please try again.";
+      addMessage(reply, 'bot');
+      history.push({ role: 'bot', text: reply });
     } catch (err) {
       typingEl.remove();
       addMessage("I'm having trouble connecting right now. Please try again in a moment.", 'bot');
