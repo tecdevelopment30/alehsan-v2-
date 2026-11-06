@@ -806,7 +806,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ history: history.slice(-20), leadSent })
         });
-        if (!res.ok && res.status !== 502 && res.status !== 500) throw new Error('no api');
+        if (!res.ok) throw new Error('api ' + res.status);
         data = await res.json();
       } catch (e) {
         // Fallback to the old n8n webhook while the Worker has no Gemini key yet (503)
