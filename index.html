@@ -751,6 +751,8 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 // ===================== AI chat widget — Gemini assistant served from /api/chat (Cloudflare Pages Function) =====================
 (function(){
   const CHAT_URL = '/api/chat';
+  const FALLBACK_URL = 'https://sammoo.app.n8n.cloud/webhook/alehsan-chat'; // remove after moving to Cloudflare Pages
+  const sessionId = 'site-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
   const history = [];   // [{role:'user'|'bot', text}]
   let leadSent = false;
 
@@ -798,12 +800,24 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     sendBtn.disabled = true;
 
     try {
-      const res = await fetch(CHAT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ history: history.slice(-20), leadSent })
-      });
-      const data = await res.json();
+      let data;
+      try {
+        const res = await fetch(CHAT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ history: history.slice(-20), leadSent })
+        });
+        if (!res.ok && res.status !== 502 && res.status !== 500) throw new Error('no api');
+        data = await res.json();
+      } catch (e) {
+        // Fallback while the site is still on GitHub Pages (no /api/chat yet)
+        const res2 = await fetch(FALLBACK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, sessionId })
+        });
+        data = await res2.json();
+      }
       typingEl.remove();
       if (data.leadSent) leadSent = true;
       const reply = data.reply || "Sorry, I couldn't process that — please try again.";
