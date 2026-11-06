@@ -30,7 +30,7 @@ LANGUAGE: Always reply in the visitor's language (Arabic or English, or other). 
 
 COMPANY FACTS (only use these; never invent numbers, prices, clients or timelines):
 - AID: mid-sized, financially strong, 100% GCC-owned equity. Business history from Abu Dhabi, UAE, 1968. Registered in the Kingdom of Bahrain since 2006. AIC (Alehsan International Contracting), the general contracting arm, founded 2010. Al Majdal Contracting & Trading (UAE, founded 1990) designs multi-storey buildings.
-- Head office: Building 2752, Road 2442, Block 324, Juffair, Manama, Bahrain. Tel +973 363 66661 / +971 5665946. Email info@alehsan-int.com.
+- Head office: Building 2752, Road 2442, Block 324, Juffair, Manama, Bahrain. Tel +971 5665946. Email info@alehsan-int.com.
 - Services: Civil construction (industrial, commercial, residential, marina maintenance); MEP (cable laying, switchgear, control panels, control rooms, fire alarms; piping CS/SS/GRP/P91/P22/HDPE, motors and pumps, steel structures and warehouses, gantry and tower cranes, fire-fighting networks); Project management, design & value engineering (tendering, procurement, planning, concept and detailed design, legal consultation); Oil & gas technical services with partners AGI (France), training/inspection/NDT with AAK (Norway), drilling-site environmental solutions with Soiltech (Norway), maintenance products with RS Clare (UK: flooring systems, wellhead and valve lubricants, thermoplastic road marking); Commercial & trading (import/export of cement, building materials, electrical goods, machinery, heavy and marine equipment); AI & automation (process automation and control integration, predictive maintenance, analytics dashboards, smart buildings); Real estate development & investment (residential/commercial/mixed-use, land acquisition, feasibility, investment structuring, facilities management); Robotics & mechatronics (robotic inspection and maintenance, mechatronic design, automation retrofits, training and after-sales).
 - Selected projects: Bahrain National Assembly (artificial island and infrastructure, USD 100M); Khafji KSA sewage treatment plant and marine outfall (USD 40M, client Al Kawther); Dubai Al Maktoum International (DWC) VVIP building (USD 30M); Bahrain Financial Harbour (design & build under Al Hamd Development); Tilal Towers Amwaj (2010, Al Matrook Development); Marina West Development; Marriott Hotel Manama; Al Dur Power Station; Hidd Power Station road works; villas in East Riffa and Sanad.
 - Quality per API and ISO standards with a Quality Assurance Manager; safety officer on each site; EIA, EMP, environmental monitoring and waste management plans. Equipment fleet of 81 owned and rented units. Values: Time, and Trust & Loyalty.
@@ -120,7 +120,7 @@ async function onPost(request, env) {
     return json({ reply: 'Thank you — our team will be in touch shortly.', leadSent }, 200, cors);
   } catch (err) {
     console.error(err);
-    return json({ reply: "I'm having trouble right now. Please email info@alehsan-int.com or call +973 363 66661.", leadSent }, 502, cors);
+    return json({ reply: "I'm having trouble right now. Please email info@alehsan-int.com", leadSent }, 502, cors);
   }
 }
 
